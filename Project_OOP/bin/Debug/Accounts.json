@@ -4,7 +4,15 @@
     "UserName": "Oleg",
     "Password": "oleja",
     "AccountType": 0,
-    "GameList": [],
+    "GameList": [
+      {
+        "GameId": 690071,
+        "RatingAmount": -19,
+        "OpponentName": "Bots",
+        "GameResult": "Lose",
+        "GameType": 1
+      }
+    ],
     "_curRating": 1
   },
   {
@@ -12,7 +20,15 @@
     "UserName": "kirgo",
     "Password": "katana",
     "AccountType": 0,
-    "GameList": [],
+    "GameList": [
+      {
+        "GameId": 690070,
+        "RatingAmount": 0,
+        "OpponentName": "Bots",
+        "GameResult": "Draw",
+        "GameType": 1
+      }
+    ],
     "_curRating": 1
   }
 ]

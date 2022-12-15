@@ -659,21 +659,15 @@ namespace Project_OOP
 
         private void PlaceInRandomFreeSpace()
         {
-            int j;
             for (int i = 0; i < TicTacToe.Length; i++)
             {
-                for (j = 0; j < TicTacToe[0].Length; j++)
+                for (int j = 0; j < TicTacToe[0].Length; j++)
                 {
                     if (CheckSpace(i,j))
                     {
                         TicTacToe[i][j] = _botSign;
-                        break;
+                        return;
                     }
-                }
-
-                if (CheckSpace(i, j))
-                {
-                    break;
                 }
             }
         }

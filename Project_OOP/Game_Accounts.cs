@@ -14,6 +14,7 @@ namespace Project_OOP
             public readonly string UserName;
             public  readonly string Password;
             public AccountTypes AccountType = AccountTypes.Basic;
+            [JsonRequired]
             private int _curRating = 1;
 
             protected int CurrentRating

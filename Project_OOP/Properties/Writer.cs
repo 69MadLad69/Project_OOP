@@ -20,19 +20,6 @@ namespace Project_OOP.Properties
             Seperator();
         }
         
-        public void PrintOptions(params string[] options)
-        {
-            foreach (var option in options)
-            {
-                Console.Write("|");
-                AlignCenterColStart();
-                Console.Write(option);
-                AlignCenterColEnd(option);
-                Console.Write("|\n");
-            }
-            Seperator();
-        }
-
         public void PrintOptionsRow(params string[] options)
         {   
             int lineSize = TableWidth / options.Length;
@@ -65,19 +52,5 @@ namespace Project_OOP.Properties
                 Console.Write(" ");
             }
         }
-
-        private void AlignCenterColStart()
-        {
-            for (int i = 0; i < TableWidth/2; i++){
-                Console.Write(" ");
-            }
-        }
-
-        private void AlignCenterColEnd(String line)
-        {
-            for (int i = 0; i < TableWidth/2-line.Length; i++){
-                Console.Write(" ");
-            }
-        }  
     }
 }

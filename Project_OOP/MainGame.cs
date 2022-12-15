@@ -5,9 +5,23 @@ namespace Project_OOP
 {
     public abstract class MainGame
     {
-        private protected readonly char[][] TickTakToe = {"   ".ToCharArray(), "   ".ToCharArray(), "   ".ToCharArray()};
+        private protected readonly char[][] TicTacToe = {"   ".ToCharArray(), "   ".ToCharArray(), "   ".ToCharArray()};
         private static readonly Random RandOrder = new Random();
         private protected readonly GameTypes.CreateGame CreateGame = new GameTypes.CreateGame();
+        
+        private static int ParseChoiseToInt(string choiseString)
+        { 
+            int choice = 0;
+            try
+            {
+                choice = int.Parse(choiseString ?? string.Empty);
+            }
+            catch (FormatException)
+            {
+            }
+
+            return choice;
+        }
         public virtual void Game(GameAccounts.BasicGameAccount player, GameAccounts.BasicGameAccount opponent, GameTypesNames gameType)
         {
             switch (ChooseOrder()) 
@@ -219,7 +233,7 @@ namespace Project_OOP
 
         private protected bool CheckSpace(int row, int col)
         {
-            if (TickTakToe[row][col] == ' ')
+            if (TicTacToe[row][col] == ' ')
             {
                 return true;
             }
@@ -236,12 +250,12 @@ namespace Project_OOP
                 {
                     case 0:
                     {
-                        for (int i = 0; i < TickTakToe.Length; i++)
+                        for (int i = 0; i < TicTacToe.Length; i++)
                         {
                             int xcounter = 0;
-                            for (int j = 0; j < TickTakToe[0].Length; j++)
+                            for (int j = 0; j < TicTacToe[0].Length; j++)
                             {
-                                if (TickTakToe[i][j] == 'X')
+                                if (TicTacToe[i][j] == 'X')
                                 {
                                     xcounter++;
                                 }
@@ -258,12 +272,12 @@ namespace Project_OOP
 
                     case 1:
                     {
-                        for (int i = 0; i < TickTakToe.Length; i++)
+                        for (int i = 0; i < TicTacToe.Length; i++)
                         {
                             int xcounter = 0;
-                            for (int j = 0; j < TickTakToe[0].Length; j++)
+                            for (int j = 0; j < TicTacToe[0].Length; j++)
                             {
-                                if (TickTakToe[j][i] == 'X')
+                                if (TicTacToe[j][i] == 'X')
                                 {
                                     xcounter++;
                                 }
@@ -281,9 +295,9 @@ namespace Project_OOP
                     case 2:
                     {
                         int xcounter = 0;
-                        for (int i = 0; i < TickTakToe.Length;i++)
+                        for (int i = 0; i < TicTacToe.Length;i++)
                         {
-                            if (TickTakToe[i][i] == 'X')
+                            if (TicTacToe[i][i] == 'X')
                             {
                                 xcounter++;
                             }
@@ -299,11 +313,16 @@ namespace Project_OOP
                     case 3:
                     {
                         int xcounter = 0;
-                        for (int i = TickTakToe.Length-1; i >= 0; i--)
+                        for (int i = TicTacToe.Length-1; i >= 0;)
                         {
-                            if (TickTakToe[i][i] == 'X')
+                            for (int j = 0; j < TicTacToe[0].Length; j++)
                             {
-                                xcounter++;
+                                if (TicTacToe[j][i] == 'X')
+                                {
+                                    xcounter++;
+                                }
+
+                                i--;
                             }
 
                             if (xcounter == 3)
@@ -331,12 +350,12 @@ namespace Project_OOP
                 {
                     case 0:
                     {
-                        for (int i = 0; i < TickTakToe.Length; i++)
+                        for (int i = 0; i < TicTacToe.Length; i++)
                         {
                             int ocounter = 0;
-                            for (int j = 0; j < TickTakToe[0].Length; j++)
+                            for (int j = 0; j < TicTacToe[0].Length; j++)
                             {
-                                if (TickTakToe[i][j] == '0')
+                                if (TicTacToe[i][j] == '0')
                                 {
                                     ocounter++;
                                 }
@@ -353,12 +372,12 @@ namespace Project_OOP
 
                     case 1:
                     {
-                        for (int i = 0; i < TickTakToe.Length; i++)
+                        for (int i = 0; i < TicTacToe.Length; i++)
                         {
                             int ocounter = 0;
-                            for (int j = 0; j < TickTakToe[0].Length; j++)
+                            for (int j = 0; j < TicTacToe[0].Length; j++)
                             {
-                                if (TickTakToe[j][i] == '0')
+                                if (TicTacToe[j][i] == '0')
                                 {
                                     ocounter++;
                                 }
@@ -376,9 +395,9 @@ namespace Project_OOP
                     case 2:
                     {
                         int ocounter = 0;
-                        for (int i = 0; i < TickTakToe.Length; i++)
+                        for (int i = 0; i < TicTacToe.Length; i++)
                         {
-                            if (TickTakToe[i][i] == '0')
+                            if (TicTacToe[i][i] == '0')
                             {
                                 ocounter++;
                             }
@@ -395,11 +414,16 @@ namespace Project_OOP
                     case 3:
                     {
                         int ocounter = 0;
-                        for (int i = TickTakToe.Length-1; i >= 0;i--)
+                        for (int i = TicTacToe.Length-1; i >= 0;)
                         {
-                            if (TickTakToe[i][i] == '0')
+                            for (int j = 0; j < TicTacToe[0].Length; j++)
                             {
-                                ocounter++;
+                                if (TicTacToe[j][i] == '0')
+                                {
+                                    ocounter++;
+                                }
+
+                                i--;
                             }
 
                             if (ocounter == 3)
@@ -421,9 +445,9 @@ namespace Project_OOP
         private protected bool CheckDraw()
         {
             int drawcounter = 0;
-            for (int i = 0; i < TickTakToe.Length; i++)
+            for (int i = 0; i < TicTacToe.Length; i++)
             {
-                for (int j = 0; j < TickTakToe[0].Length; j++)
+                for (int j = 0; j < TicTacToe[0].Length; j++)
                 {
                     if (!CheckSpace(i,j))
                     {
@@ -432,7 +456,7 @@ namespace Project_OOP
                 }
             }
 
-            if (drawcounter == TickTakToe.Length*TickTakToe[0].Length)
+            if (drawcounter == TicTacToe.Length*TicTacToe[0].Length)
             {
                 return true;
             }
@@ -443,9 +467,9 @@ namespace Project_OOP
         private protected void AskX(GameAccounts.BasicGameAccount player)
         {
             Console.WriteLine(player.UserName+" input row, where you want to place X (1-3):");
-            int rowChoice = Convert.ToInt32(Console.ReadLine());
+            int rowChoice = ParseChoiseToInt(Console.ReadLine());
             Console.WriteLine(player.UserName+" input column, where you want to place X (1-3):");
-            int colChoice = Convert.ToInt32(Console.ReadLine());
+            int colChoice = ParseChoiseToInt(Console.ReadLine());
             if (rowChoice > 3 || rowChoice < 1 || colChoice > 3 || colChoice < 1)
             {
                 Console.WriteLine("Please input numbers in a range 1-3");
@@ -453,7 +477,7 @@ namespace Project_OOP
             }
             if (CheckSpace(rowChoice-1, colChoice-1))
             {
-                TickTakToe[rowChoice - 1][colChoice - 1] = 'X';
+                TicTacToe[rowChoice - 1][colChoice - 1] = 'X';
             }
             else
             {
@@ -465,9 +489,9 @@ namespace Project_OOP
         private protected void Ask0(GameAccounts.BasicGameAccount player)
         {
             Console.WriteLine(player.UserName+" input row, where you want to place 0 (1-3):");
-            int rowChoice = Convert.ToInt32(Console.ReadLine());
+            int rowChoice = ParseChoiseToInt(Console.ReadLine());
             Console.WriteLine(player.UserName+" input column, where you want to place 0 (1-3):");
-            int colChoice = Convert.ToInt32(Console.ReadLine());
+            int colChoice = ParseChoiseToInt(Console.ReadLine());
             if (rowChoice > 3 || rowChoice < 1 || colChoice > 3 || colChoice < 1)
             {
                 Console.WriteLine("Please input numbers in a range 1-3");
@@ -475,7 +499,7 @@ namespace Project_OOP
             }
             if (CheckSpace(rowChoice-1, colChoice-1))
             {
-                TickTakToe[rowChoice - 1][colChoice - 1] = '0';
+                TicTacToe[rowChoice - 1][colChoice - 1] = '0';
             }
             else
             {
@@ -486,23 +510,23 @@ namespace Project_OOP
 
         private protected void ClearTickTakToe()
         {
-            for (int i = 0; i < TickTakToe.Length; i++)
+            for (int i = 0; i < TicTacToe.Length; i++)
             {
-                for (int j = 0; j < TickTakToe[0].Length; j++)
+                for (int j = 0; j < TicTacToe[0].Length; j++)
                 {
-                    TickTakToe[i][j] = ' ';
+                    TicTacToe[i][j] = ' ';
                 }
             }
         }
 
         private protected void PrintTickTakToe()
         {
-            for (int i = 0; i < TickTakToe.Length; i++)
+            for (int i = 0; i < TicTacToe.Length; i++)
             {
                 Console.Write("| ");
-                for (int j = 0; j < TickTakToe[0].Length; j++)
+                for (int j = 0; j < TicTacToe[0].Length; j++)
                 {
-                    Console.Write(TickTakToe[i][j] + " | ");
+                    Console.Write(TicTacToe[i][j] + " | ");
                 }
                 Console.Write("\n");
             }
@@ -534,19 +558,6 @@ namespace Project_OOP
                     break;
                 }
             }
-            // if (gameResult.Equals(GameResults.Win))
-            // {
-            //     game.Player.WinGame(game.Opponent.UserName, game);
-            //     game.Opponent.LoseGame(game.Player.UserName, game);
-            // }
-            // else
-            // {
-            //     if (gameResult.Equals(GameResults.Lose))
-            //     {
-            //         game.Player.LoseGame(game.Opponent.UserName, game);
-            //         game.Opponent.WinGame(game.Player.UserName, game);
-            //     }
-            // }
         }
     }
         
@@ -560,12 +571,12 @@ namespace Project_OOP
         private char _botSign, _playerSign;
         private int CheckStratRows()
         {
-            for (int i = 0; i < TickTakToe.Length; i++)
+            for (int i = 0; i < TicTacToe.Length; i++)
             {
                 int takenCounter = 0;
-                for (int j = 0; j < TickTakToe[0].Length; j++)
+                for (int j = 0; j < TicTacToe[0].Length; j++)
                 {
-                    if (TickTakToe[i][j] == _playerSign)
+                    if (TicTacToe[i][j] == _playerSign)
                     {
                         takenCounter++;
                     }
@@ -583,12 +594,12 @@ namespace Project_OOP
         
         private int CheckStratCols()
         {
-            for (int i = 0; i < TickTakToe.Length; i++)
+            for (int i = 0; i < TicTacToe.Length; i++)
             {
                 int takenCounter = 0;
-                for (int j = 0; j < TickTakToe[0].Length; j++)
+                for (int j = 0; j < TicTacToe[0].Length; j++)
                 {
-                    if (TickTakToe[j][i] == _playerSign)
+                    if (TicTacToe[j][i] == _playerSign)
                     {
                         takenCounter++;
                     }
@@ -607,9 +618,9 @@ namespace Project_OOP
         private bool CheckStratDiag()
         {
             int takenCounter = 0, i;
-            for (i = 0; i < TickTakToe.Length; i++)
+            for (i = 0; i < TicTacToe.Length; i++)
             {
-                if (TickTakToe[i][i] == _playerSign)
+                if (TicTacToe[i][i] == _playerSign)
                 {
                     takenCounter++;
                     _row = 0;
@@ -628,12 +639,12 @@ namespace Project_OOP
         private bool CheckStratPobichDiag()
         {
             int takenCounter = 0, i;
-            for (i = TickTakToe.Length-1; i > 0; i--)
+            for (i = TicTacToe.Length-1; i > 0; i--)
             {
-                if (TickTakToe[i][i] == _playerSign)
+                if (TicTacToe[i][i] == _playerSign)
                 {
                     takenCounter++;
-                    _row = TickTakToe.Length-1;
+                    _row = TicTacToe.Length-1;
                     break;
                 }
             }
@@ -648,15 +659,21 @@ namespace Project_OOP
 
         private void PlaceInRandomFreeSpace()
         {
-            for (int i = 0; i < TickTakToe.Length; i++)
+            int j;
+            for (int i = 0; i < TicTacToe.Length; i++)
             {
-                for (int j = 0; j < TickTakToe[0].Length; j++)
+                for (j = 0; j < TicTacToe[0].Length; j++)
                 {
                     if (CheckSpace(i,j))
                     {
-                        TickTakToe[i][j] = _botSign;
+                        TicTacToe[i][j] = _botSign;
                         break;
                     }
+                }
+
+                if (CheckSpace(i, j))
+                {
+                    break;
                 }
             }
         }
@@ -670,7 +687,7 @@ namespace Project_OOP
                 {
                     _col++;
                 }
-                TickTakToe[_row][_col] = _botSign;
+                TicTacToe[_row][_col] = _botSign;
             }
             else
             {
@@ -683,7 +700,7 @@ namespace Project_OOP
                     {
                         _row++;
                     }
-                    TickTakToe[_row][_col] = _botSign;
+                    TicTacToe[_row][_col] = _botSign;
                 }
                 else
                 {
@@ -692,13 +709,13 @@ namespace Project_OOP
                     if (CheckStratDiag())
                     {
                         _row++;
-                        TickTakToe[_row][_row] = _botSign;
+                        TicTacToe[_row][_row] = _botSign;
                     }
                     else
                     {
                         if (CheckStratPobichDiag())
                         {
-                            TickTakToe[_row][_row] = _botSign;
+                            TicTacToe[_row][_row] = _botSign;
                             _row--;
                         }
                         else
@@ -712,12 +729,12 @@ namespace Project_OOP
 
         private bool CheckOpponentWinRows()
         {
-            for (int i = 0; i < TickTakToe.Length; i++)
+            for (int i = 0; i < TicTacToe.Length; i++)
             {
                 int takenRowCounter = 0, notTakenCol = 0;
-                for (int j = 0; j < TickTakToe[0].Length; j++)
+                for (int j = 0; j < TicTacToe[0].Length; j++)
                 {
-                    if (TickTakToe[i][j] == _playerSign)
+                    if (TicTacToe[i][j] == _playerSign)
                     {
                         takenRowCounter++;
                     }
@@ -729,7 +746,7 @@ namespace Project_OOP
 
                 if (takenRowCounter == 2 && CheckSpace(i, notTakenCol))
                 {
-                    TickTakToe[i][notTakenCol] = _botSign;
+                    TicTacToe[i][notTakenCol] = _botSign;
                     return true;
                 }
             }
@@ -739,12 +756,12 @@ namespace Project_OOP
 
         private bool CheckOpponentWinCols()
         {
-            for (int i = 0; i < TickTakToe.Length; i++)
+            for (int i = 0; i < TicTacToe.Length; i++)
             {
                 int takenColCounter = 0, notTakenRow = 0;
-                for (int j = 0; j < TickTakToe[0].Length; j++)
+                for (int j = 0; j < TicTacToe[0].Length; j++)
                 {
-                    if (TickTakToe[j][i] == _playerSign)
+                    if (TicTacToe[j][i] == _playerSign)
                     {
                         takenColCounter++;
                     }
@@ -756,7 +773,7 @@ namespace Project_OOP
 
                 if (takenColCounter == 2 && CheckSpace(notTakenRow, i))
                 {
-                    TickTakToe[notTakenRow][i] = _botSign;
+                    TicTacToe[notTakenRow][i] = _botSign;
                     return true;
                 }
             }
@@ -767,9 +784,9 @@ namespace Project_OOP
         private bool CheckOpponentWinMainDiagonal()
         {
             int takenDiagCounter = 0, notTakenDiag = 0;
-            for (int i = 0; i < TickTakToe.Length; i++)
+            for (int i = 0; i < TicTacToe.Length; i++)
             {
-                if (TickTakToe[i][i] == _playerSign)
+                if (TicTacToe[i][i] == _playerSign)
                 {
                     takenDiagCounter++;
                 }
@@ -780,7 +797,7 @@ namespace Project_OOP
             }
             if (takenDiagCounter == 2 && CheckSpace(notTakenDiag,notTakenDiag))
             {
-                TickTakToe[notTakenDiag][notTakenDiag] = _botSign;
+                TicTacToe[notTakenDiag][notTakenDiag] = _botSign;
                 return true;
             }
 
@@ -790,9 +807,9 @@ namespace Project_OOP
         private bool CheckOpponentWinPobichnaDiagonal()
         {
             int takenDiagCounter = 0, notTakenDiag = 0;
-            for (int i = TickTakToe.Length-1; i >= 0; i--)
+            for (int i = TicTacToe.Length-1; i >= 0; i--)
             {
-                if (TickTakToe[i][i] == _playerSign)
+                if (TicTacToe[i][i] == _playerSign)
                 {
                     takenDiagCounter++;
                 }
@@ -803,7 +820,7 @@ namespace Project_OOP
             }
             if (takenDiagCounter == 2 && CheckSpace(notTakenDiag, notTakenDiag))
             {
-                TickTakToe[notTakenDiag][notTakenDiag] = _botSign;
+                TicTacToe[notTakenDiag][notTakenDiag] = _botSign;
                 return true;
             }
 

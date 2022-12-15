@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using Project_OOP.Properties;
 
@@ -12,9 +11,8 @@ namespace Project_OOP
         private readonly Writer _writer = new Writer();
         public void MainMenu()
         {
-            // _dataBase.LoadData();
             _dataBase.Accounts = _dataBase.LoadAllAccountsFromDataBase();
-            _writer.PrintTitle("WELCOME TO TICKTACKTOE SHARP");
+            _writer.PrintTitle("WELCOME TO TICTACTOE SHARP");
             _writer.PrintOptionsRow("1.Log in",
                                     "2.Sign up",
                                     "3.Exit");
@@ -36,14 +34,6 @@ namespace Project_OOP
                     Environment.Exit(0);
                     break;
                 }
-
-                // case 5:
-                // {
-                //     _writer.PrintTitle("Write Username of account you want to delete");
-                //     string accountDel = Console.ReadLine();
-                //     if (accountDel != null) _dataBase.DeleteAccountFromDataBase(accountDel.Trim());
-                //     break;
-                // }
 
                 default:{
                     _writer.PrintTitle("Error! Wrong input! Please try again!");
@@ -72,7 +62,7 @@ namespace Project_OOP
             {
                 if (username != null && password != null)
                 {
-                    GameAccounts.GameAccount newAccount = new GameAccounts.GameAccount(username.Trim(), password.Trim());
+                    GameAccounts.BasicGameAccount newAccount = new GameAccounts.GameAccount(username.Trim(),password.Trim());
                     _dataBase.Accounts.Add(newAccount);
                 }
 
@@ -364,7 +354,7 @@ namespace Project_OOP
             }
         }
 
-        private int ParseChoiseToInt(string choiseString)
+        private static int ParseChoiseToInt(string choiseString)
         { 
             int choice = 0;
             try

@@ -7,6 +7,7 @@ namespace Project_OOP
 {
     public class GameAccounts
     {
+        private static DataBase _data = new DataBase();
         public static int BasicGameId = 690068;
         private static readonly Writer Printer = new Writer(); 
         public abstract class BasicGameAccount
@@ -232,7 +233,7 @@ namespace Project_OOP
             public readonly GameTypesNames GameType;
 
             public Game(int gameId, int ratingAmount, string opponentName, string gameResult, GameTypesNames gameType){
-                GameId = gameId+1;
+                GameId = _data.LastId(gameId);
                 RatingAmount = ratingAmount;
                 OpponentName = opponentName;
                 GameResult = gameResult;

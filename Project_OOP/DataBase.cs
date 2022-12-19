@@ -9,6 +9,17 @@ namespace Project_OOP
         public List<GameAccounts.BasicGameAccount> Accounts = new List<GameAccounts.BasicGameAccount>();
         private static readonly Random RandOpponent = new Random();
 
+        public int LastId(int basicId)
+        {
+            int gameCounter = 0;
+            foreach (var account in Accounts)
+            {
+               gameCounter += account.GameList.Count;
+            }
+
+            return basicId+gameCounter;
+        }
+
         public GameAccounts.PrimeAccount UpgradeToPrime(GameAccounts.BasicGameAccount account)
         {
             GameAccounts.PrimeAccount primeAccount = new GameAccounts.PrimeAccount(account);
@@ -25,22 +36,22 @@ namespace Project_OOP
             return primeDeluxeAccount;
         }
         
-        public GameAccounts.BasicGameAccount ChooseRandomOpponent(GameAccounts.BasicGameAccount player)
+        public GameAccounts.BasicGameAccount ChooseRandomOpponent(String username)
         {
             int randI = RandOpponent.Next(0, Accounts.Count);
-            if (Accounts[randI] == player)
+            if (Accounts[randI].UserName == username)
             {
-                ChooseRandomOpponent(player);   
+                ChooseRandomOpponent(username);   
             }
             return Accounts[randI];
         }
         
-        public GameAccounts.BasicGameAccount ChooseRandomNewOpponent(GameAccounts.BasicGameAccount player, GameAccounts.BasicGameAccount prevOpponent)
+        public GameAccounts.BasicGameAccount ChooseRandomNewOpponent(String playerUsername, String prevOpponentUsername)
         {
             int randI = RandOpponent.Next(0, Accounts.Count);
-            if (Accounts[randI] == player || Accounts[randI] == prevOpponent)
+            if (Accounts[randI].UserName == playerUsername || Accounts[randI].UserName == prevOpponentUsername)
             {
-                ChooseRandomOpponent(player);   
+                ChooseRandomNewOpponent(playerUsername, prevOpponentUsername);   
             }
             return Accounts[randI];
         }

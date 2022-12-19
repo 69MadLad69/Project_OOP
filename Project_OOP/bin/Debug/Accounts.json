@@ -6,11 +6,18 @@
     "AccountType": 0,
     "GameList": [
       {
-        "GameId": 690071,
+        "GameId": 690077,
         "RatingAmount": -19,
         "OpponentName": "Bots",
         "GameResult": "Lose",
         "GameType": 1
+      },
+      {
+        "GameId": 690071,
+        "RatingAmount": -22,
+        "OpponentName": "tilt",
+        "GameResult": "Lose",
+        "GameType": 0
       }
     ],
     "_curRating": 1
@@ -22,13 +29,51 @@
     "AccountType": 0,
     "GameList": [
       {
-        "GameId": 690070,
+        "GameId": 690076,
         "RatingAmount": 0,
         "OpponentName": "Bots",
         "GameResult": "Draw",
         "GameType": 1
+      },
+      {
+        "GameId": 690070,
+        "RatingAmount": -4,
+        "OpponentName": "tilt",
+        "GameResult": "Lose",
+        "GameType": 0
       }
     ],
     "_curRating": 1
+  },
+  {
+    "$type": "Project_OOP.GameAccounts+GameAccount, Project_OOP",
+    "UserName": "aboba",
+    "Password": "123",
+    "AccountType": 0,
+    "GameList": [],
+    "_curRating": 1
+  },
+  {
+    "$type": "Project_OOP.GameAccounts+GameAccount, Project_OOP",
+    "UserName": "tilt",
+    "Password": "notilt",
+    "AccountType": 0,
+    "GameList": [
+      {
+        "GameId": 690071,
+        "RatingAmount": 22,
+        "OpponentName": "Oleg",
+        "GameResult": "Win",
+        "GameType": 0
+      },
+      {
+        "GameId": 690070,
+        "RatingAmount": 4,
+        "OpponentName": "kirgo",
+        "GameResult": "Win",
+        "GameType": 0
+      }
+    ],
+    "_curRating": 27
   }
 ]

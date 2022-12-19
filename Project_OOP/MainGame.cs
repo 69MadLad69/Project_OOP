@@ -34,7 +34,6 @@ namespace Project_OOP
                     while (true) 
                     { 
                         Console.Clear();
-                        PrintTickTakToe();
                         if (CheckDraw())
                         {
                             Console.WriteLine("\nIt`s a draw!");
@@ -76,7 +75,6 @@ namespace Project_OOP
                         }
                         AskX(player);
                         Console.Clear();
-                        PrintTickTakToe();
                         if (CheckXWin())
                         { 
                             Console.Clear();
@@ -129,7 +127,6 @@ namespace Project_OOP
                     while (true) 
                     { 
                         Console.Clear();
-                        PrintTickTakToe();
                         if (CheckDraw())
                         {
                             Console.WriteLine("\nIt`s a draw!");
@@ -171,7 +168,6 @@ namespace Project_OOP
                         }
                         AskX(opponent);
                         Console.Clear();
-                        PrintTickTakToe();
                         if (CheckXWin())
                         { 
                             Console.Clear();
@@ -466,6 +462,7 @@ namespace Project_OOP
 
         private protected void AskX(GameAccounts.BasicGameAccount player)
         {
+            PrintTickTakToe();
             Console.WriteLine(player.UserName+" input row, where you want to place X (1-3):");
             int rowChoice = ParseChoiseToInt(Console.ReadLine());
             Console.WriteLine(player.UserName+" input column, where you want to place X (1-3):");
@@ -488,6 +485,7 @@ namespace Project_OOP
 
         private protected void Ask0(GameAccounts.BasicGameAccount player)
         {
+            PrintTickTakToe();
             Console.WriteLine(player.UserName+" input row, where you want to place 0 (1-3):");
             int rowChoice = ParseChoiseToInt(Console.ReadLine());
             Console.WriteLine(player.UserName+" input column, where you want to place 0 (1-3):");
@@ -495,6 +493,8 @@ namespace Project_OOP
             if (rowChoice > 3 || rowChoice < 1 || colChoice > 3 || colChoice < 1)
             {
                 Console.WriteLine("Please input numbers in a range 1-3");
+                Thread.Sleep(2000);
+                Console.Clear();
                 AskX(player);
             }
             if (CheckSpace(rowChoice-1, colChoice-1))
@@ -532,7 +532,7 @@ namespace Project_OOP
             }
         }
 
-        private protected static void DecideGameResult(GameTypes.BasicGame game, Enum gameResult)
+        private protected void DecideGameResult(GameTypes.BasicGame game, Enum gameResult)
         {
             GameAccounts.BasicGameId++;
             switch (gameResult)
@@ -850,7 +850,6 @@ namespace Project_OOP
                     while (true) 
                     { 
                         Console.Clear();
-                        PrintTickTakToe();
                         if (CheckDraw())
                         {
                             Console.WriteLine("\nIt`s a draw!");
@@ -917,7 +916,6 @@ namespace Project_OOP
                             AskBot();
                         }
                         Console.Clear();
-                        PrintTickTakToe();
                         if (CheckXWin())
                         { 
                             Console.Clear();

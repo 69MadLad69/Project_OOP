@@ -26,7 +26,7 @@ namespace Project_OOP
                 }
 
                 case 2:{
-                    SingUpMenu();
+                    SignUpMenu();
                     break;
                 }
 
@@ -45,16 +45,16 @@ namespace Project_OOP
             }
         }
 
-        private void SingUpMenu()
+        private void SignUpMenu()
         {
             Console.Clear();
             _writer.PrintTitle("Please enter Username");
             String username = Console.ReadLine();
-            if (!SingUpUsernameCheck(username))
+            if (!SignUpUsernameCheck(username))
             {
                 _writer.PrintTitle("Error! Account with such Username already exists! Please input other Username!");
                 Thread.Sleep(2500);
-                SingUpMenu();
+                SignUpMenu();
             }
             _writer.PrintTitle("Please enter Password");
             String password = Console.ReadLine();
@@ -77,15 +77,15 @@ namespace Project_OOP
                 Console.Clear();
                 _writer.PrintTitle("Error! You didn`t input Username or Password! Please try again!");
                 Thread.Sleep(2000);
-                SingUpMenu();
+                SignUpMenu();
             }
         }
 
-        private bool SingUpUsernameCheck(string username)
+        private bool SignUpUsernameCheck(string username)
         {
             foreach (var account in _dataBase.Accounts)
             {
-                if (account.UserName == username)
+                if (account.UserName == username.Trim())
                 {
                     return false;
                 }
@@ -263,7 +263,7 @@ namespace Project_OOP
                     {
                         case 1:
                         {
-                            GameAccounts.BasicGameAccount newOpponent = _dataBase.ChooseRandomNewOpponent(player,opponent);
+                            GameAccounts.BasicGameAccount newOpponent = _dataBase.ChooseRandomNewOpponent(player.UserName,opponent.UserName);
                             _gamePvP.Game(player, newOpponent,gameType);
                             AfterGameMenu(player, newOpponent,gameType);
                             break;
@@ -319,7 +319,14 @@ namespace Project_OOP
                 {
                     case 1:
                     {
-                        GameAccounts.BasicGameAccount opponent = _dataBase.ChooseRandomOpponent(account);
+                        if (_dataBase.Accounts.Count < 2)
+                        {
+                            _writer.PrintTitle("Error! Sorry, but you`re the only player in the game. Wait for more players or choose PvE mode.");
+                            Console.Clear();
+                            PlayMenu(account);
+                        }
+
+                        GameAccounts.BasicGameAccount opponent = _dataBase.ChooseRandomOpponent(account.UserName);
                         _gamePvP.Game(account, opponent, GameTypesNames.Normal);
                         _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
                         AfterGameMenu(account,opponent, GameTypesNames.Normal);
@@ -328,7 +335,14 @@ namespace Project_OOP
 
                     case 2:
                     {
-                        GameAccounts.BasicGameAccount opponent = _dataBase.ChooseRandomOpponent(account);
+                        if (_dataBase.Accounts.Count < 2)
+                        {
+                            _writer.PrintTitle("Error! Sorry, but you`re the only player in the game. Wait for more players or choose PvE mode.");
+                            Console.Clear();
+                            PlayMenu(account);
+                        }
+                        
+                        GameAccounts.BasicGameAccount opponent = _dataBase.ChooseRandomOpponent(account.UserName);
                         _gamePvP.Game(account, opponent, GameTypesNames.Training);
                         _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
                         AfterGameMenu(account,opponent, GameTypesNames.Training);

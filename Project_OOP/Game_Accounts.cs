@@ -184,13 +184,13 @@ namespace Project_OOP
 
             public override void WinGame(string opponentName, GameTypes.BasicGame basicGame){
                 CurrentRating += (int)Math.Round(basicGame.RatingAmount+basicGame.RatingAmount*CheckWinStreak());
-                Game winGame = new Game(BasicGameId, (int)Math.Round(basicGame.RatingAmount+basicGame.RatingAmount*CheckWinStreak()), opponentName, "Win", basicGame.GameType);
+                Game winGame = new Game(LastId(BasicGameId), (int)Math.Round(basicGame.RatingAmount+basicGame.RatingAmount*CheckWinStreak()), opponentName, "Win", basicGame.GameType);
                 GameList.Add(winGame);
             }
 
             public override void LoseGame(string opponentName, GameTypes.BasicGame basicGame){
                 CurrentRating -= (int)Math.Round(basicGame.RatingAmount-basicGame.RatingAmount*0.25);
-                Game loseGame = new Game(BasicGameId, -(int)Math.Round(basicGame.RatingAmount-basicGame.RatingAmount*0.25), opponentName, "Lose", basicGame.GameType);
+                Game loseGame = new Game(LastId(BasicGameId), -(int)Math.Round(basicGame.RatingAmount-basicGame.RatingAmount*0.25), opponentName, "Lose", basicGame.GameType);
                 GameList.Add(loseGame);
             }
             

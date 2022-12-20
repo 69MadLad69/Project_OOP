@@ -10,6 +10,7 @@ namespace Project_OOP
         private readonly MainGame _gamePvE = new PvE();
         private readonly Writer _writer = new();
         private readonly Creator _creator = new();
+        private readonly IntValidator _validator = new();
         public void MainMenu()
         {
             _dataBase.Accounts = _dataBase.LoadAllAccountsFromDataBase();
@@ -17,7 +18,7 @@ namespace Project_OOP
             _writer.PrintOptionsRow("1.Log in",
                                     "2.Sign up",
                                     "3.Exit");
-            int choice = ParseChoiseToInt(Console.ReadLine());
+            int choice = IntValidator.ParseChoiseToInt(Console.ReadLine());
 
             switch (choice)
             {
@@ -84,7 +85,7 @@ namespace Project_OOP
                 "3.PrimeDeluxe");
             while (true)
             {
-                int typeChoise = ParseChoiseToInt(Console.ReadLine());
+                int typeChoise = IntValidator.ParseChoiseToInt(Console.ReadLine());
                 switch (typeChoise)
                 {
                     case 1:
@@ -141,7 +142,7 @@ namespace Project_OOP
                                             "2.Return to main menu");
                     while (true)
                     {
-                        int logInChoice = ParseChoiseToInt(Console.ReadLine());
+                        int logInChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
                         switch (logInChoice)
                         {
                             case 1:
@@ -176,7 +177,7 @@ namespace Project_OOP
                                     "3.Log out",
                                     "4.Shop",
                                     "5.Exit");
-            int accountMenuChoice = ParseChoiseToInt(Console.ReadLine());
+            int accountMenuChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
             switch (accountMenuChoice)
             {
                 case 1:
@@ -196,7 +197,7 @@ namespace Project_OOP
                     _writer.PrintTitle("To return to Account menu input 1");
                     while (true)
                     {
-                        int accountMenuReturnChoise = ParseChoiseToInt(Console.ReadLine());
+                        int accountMenuReturnChoise = IntValidator.ParseChoiseToInt(Console.ReadLine());
                         if (accountMenuReturnChoise == 1)
                         {
                             Console.Clear();
@@ -222,7 +223,7 @@ namespace Project_OOP
                                             "3.Go back");
                     while (true)
                     {
-                        int upgradeMenuChoice = ParseChoiseToInt(Console.ReadLine());
+                        int upgradeMenuChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
                         switch (upgradeMenuChoice)
                         {
                             case 1:
@@ -282,7 +283,7 @@ namespace Project_OOP
             }
             while (true)
             {
-                int afterGameChoice = ParseChoiseToInt(Console.ReadLine());
+                int afterGameChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
                 if (gameType != GameTypesNames.PvE)
                 {
                     switch (afterGameChoice)
@@ -349,7 +350,7 @@ namespace Project_OOP
                                     "4.Go back to account menu");
             while (true)
             {
-                int playMenuChoice = ParseChoiseToInt(Console.ReadLine());
+                int playMenuChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
                 switch (playMenuChoice)
                 {
                     case 1:
@@ -403,20 +404,6 @@ namespace Project_OOP
                     }
                 }   
             }
-        }
-
-        private static int ParseChoiseToInt(string choiseString)
-        { 
-            int choice = 0;
-            try
-            {
-                choice = int.Parse(choiseString ?? string.Empty);
-            }
-            catch (FormatException)
-            {
-            }
-
-            return choice;
         }
     }
 }

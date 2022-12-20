@@ -1,42 +1,49 @@
 [
   {
     "$type": "Project_OOP.PrimeDeluxeAccount, Project_OOP",
-    "UserName": "kirgo",
-    "Password": "katana",
+    "UserName": "choko",
+    "Password": "bober",
     "AccountType": 2,
     "GameList": [
       {
-        "GameId": 69068,
-        "RatingAmount": -3,
-        "OpponentName": "choko",
-        "GameResult": "Lose",
+        "GameId": 69069,
+        "RatingAmount": 0,
+        "OpponentName": "kirgo",
+        "GameResult": "Win",
         "GameType": 0
+      },
+      {
+        "GameId": 69070,
+        "RatingAmount": -10,
+        "OpponentName": "Bots",
+        "GameResult": "Lose",
+        "GameType": 1
       }
     ],
     "_curRating": 1
   },
   {
-    "$type": "Project_OOP.PrimeDeluxeAccount, Project_OOP",
-    "UserName": "choko",
-    "Password": "123",
-    "AccountType": 2,
-    "GameList": [
-      {
-        "GameId": 69068,
-        "RatingAmount": 4,
-        "OpponentName": "kirgo",
-        "GameResult": "Win",
-        "GameType": 0
-      }
-    ],
-    "_curRating": 5
+    "$type": "Project_OOP.GameAccount, Project_OOP",
+    "UserName": "bober",
+    "Password": "bober",
+    "AccountType": 0,
+    "GameList": [],
+    "_curRating": 1
   },
   {
     "$type": "Project_OOP.PrimeAccount, Project_OOP",
-    "UserName": "scam",
-    "Password": "macs",
+    "UserName": "kirgo",
+    "Password": "katana",
     "AccountType": 1,
-    "GameList": [],
+    "GameList": [
+      {
+        "GameId": 69069,
+        "RatingAmount": 0,
+        "OpponentName": "choko",
+        "GameResult": "Lose",
+        "GameType": 0
+      }
+    ],
     "_curRating": 1
   }
 ]

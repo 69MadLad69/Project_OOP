@@ -9,9 +9,26 @@ namespace Project_OOP
         private static readonly Random RandOrder = new();
         private protected readonly GameTypes.CreateGame CreateGame = new();
         protected readonly InterfaceGame InterfaceGame = new();
+        private char _opponentSign, _playerSign;
         public virtual void Game(BasicGameAccount player, BasicGameAccount opponent, GameTypesNames gameType)
-        {
+        { ;
             int order = ChooseOrder();
+            switch (order)
+            {
+                case 1:
+                {
+                    _opponentSign = '0';
+                    _playerSign = 'X';
+                    break;
+                }
+
+                case 2:
+                {
+                    _opponentSign = 'X';
+                    _playerSign = '0';
+                    break;
+                }
+            }
             InterfaceGame.ShowSignsOrder(player.UserName,opponent.UserName,order);
             switch (order) 
             { 
@@ -39,7 +56,7 @@ namespace Project_OOP
                             }
                             break;
                         }
-                        if (Check0Win())
+                        if (CheckWin(_opponentSign))
                         {
                             Console.Clear();
                             Console.WriteLine("\nPlayer "+opponent.UserName+" won!");
@@ -61,7 +78,7 @@ namespace Project_OOP
                         }
                         AskPlayer(player,'X');
                         Console.Clear();
-                        if (CheckXWin())
+                        if (CheckWin(_playerSign))
                         { 
                             Console.Clear();
                             Console.WriteLine("\nPlayer "+player.UserName+" won!");
@@ -129,7 +146,7 @@ namespace Project_OOP
                             }
                             break;
                         }
-                        if (Check0Win())
+                        if (CheckWin(_playerSign))
                         {
                             Console.Clear();
                             Console.WriteLine("\nPlayer "+player.UserName+" won!");
@@ -149,9 +166,9 @@ namespace Project_OOP
                             }
                             break;
                         }
-                        AskPlayer(opponent,'X');
+                        AskPlayer(opponent,_opponentSign);
                         Console.Clear();
-                        if (CheckXWin())
+                        if (CheckWin(_opponentSign))
                         { 
                             Console.Clear();
                             Console.WriteLine("\nPlayer "+opponent.UserName+" won!");
@@ -220,7 +237,7 @@ namespace Project_OOP
             return false;
         }
 
-        private protected bool CheckXWin()
+        private protected bool CheckWin(char sign)
         {
             int checker = 0;
             while (checker < 4)
@@ -231,15 +248,15 @@ namespace Project_OOP
                     {
                         for (int i = 0; i < TicTacToe.Length; i++)
                         {
-                            int xcounter = 0;
+                            int signCounter = 0;
                             for (int j = 0; j < TicTacToe[0].Length; j++)
                             {
-                                if (TicTacToe[i][j] == 'X')
+                                if (TicTacToe[i][j] == sign)
                                 {
-                                    xcounter++;
+                                    signCounter++;
                                 }
 
-                                if (xcounter == 3)
+                                if (signCounter == 3)
                                 {
                                     return true;
                                 }
@@ -253,15 +270,15 @@ namespace Project_OOP
                     {
                         for (int i = 0; i < TicTacToe.Length; i++)
                         {
-                            int xcounter = 0;
+                            int signCounter = 0;
                             for (int j = 0; j < TicTacToe[0].Length; j++)
                             {
-                                if (TicTacToe[j][i] == 'X')
+                                if (TicTacToe[j][i] == sign)
                                 {
-                                    xcounter++;
+                                    signCounter++;
                                 }
 
-                                if (xcounter == 3)
+                                if (signCounter == 3)
                                 {
                                     return true;
                                 }
@@ -273,15 +290,15 @@ namespace Project_OOP
 
                     case 2:
                     {
-                        int xcounter = 0;
+                        int signCounter = 0;
                         for (int i = 0; i < TicTacToe.Length;i++)
                         {
-                            if (TicTacToe[i][i] == 'X')
+                            if (TicTacToe[i][i] == sign)
                             {
-                                xcounter++;
+                                signCounter++;
                             }
 
-                            if (xcounter == 3)
+                            if (signCounter == 3)
                             {
                                 return true;
                             }
@@ -291,121 +308,20 @@ namespace Project_OOP
 
                     case 3:
                     {
-                        int xcounter = 0;
+                        int signCounter = 0;
                         for (int i = TicTacToe.Length-1; i >= 0;)
                         {
                             for (int j = 0; j < TicTacToe[0].Length; j++)
                             {
-                                if (TicTacToe[j][i] == 'X')
+                                if (TicTacToe[j][i] == sign)
                                 {
-                                    xcounter++;
+                                    signCounter++;
                                 }
 
                                 i--;
                             }
 
-                            if (xcounter == 3)
-                            {
-                                return true;
-                            }
-                        }
-
-                        break;
-                    }
-                }
-
-                checker++;
-            }
-
-            return false;
-        }
-
-        private protected bool Check0Win()
-        {
-            int checker = 0;
-            while (checker < 4)
-            {
-                switch (checker)
-                {
-                    case 0:
-                    {
-                        for (int i = 0; i < TicTacToe.Length; i++)
-                        {
-                            int ocounter = 0;
-                            for (int j = 0; j < TicTacToe[0].Length; j++)
-                            {
-                                if (TicTacToe[i][j] == '0')
-                                {
-                                    ocounter++;
-                                }
-
-                                if (ocounter == 3)
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-
-                        break;
-                    }
-
-                    case 1:
-                    {
-                        for (int i = 0; i < TicTacToe.Length; i++)
-                        {
-                            int ocounter = 0;
-                            for (int j = 0; j < TicTacToe[0].Length; j++)
-                            {
-                                if (TicTacToe[j][i] == '0')
-                                {
-                                    ocounter++;
-                                }
-
-                                if (ocounter == 3)
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-
-                        break;
-                    }
-
-                    case 2:
-                    {
-                        int ocounter = 0;
-                        for (int i = 0; i < TicTacToe.Length; i++)
-                        {
-                            if (TicTacToe[i][i] == '0')
-                            {
-                                ocounter++;
-                            }
-
-                            if (ocounter == 3)
-                            {
-                                return true;
-                            }
-                        }
-
-                        break;
-                    }
-
-                    case 3:
-                    {
-                        int ocounter = 0;
-                        for (int i = TicTacToe.Length-1; i >= 0;)
-                        {
-                            for (int j = 0; j < TicTacToe[0].Length; j++)
-                            {
-                                if (TicTacToe[j][i] == '0')
-                                {
-                                    ocounter++;
-                                }
-
-                                i--;
-                            }
-
-                            if (ocounter == 3)
+                            if (signCounter == 3)
                             {
                                 return true;
                             }
@@ -453,9 +369,9 @@ namespace Project_OOP
             }
             else
             {
-                Console.Clear();
-                InterfaceGame.PrintTickTakToe(TicTacToe);
                 Console.WriteLine("This place is taken. Please choose other.");
+                Thread.Sleep(2000);
+                Console.Clear();
                 AskPlayer(player,playerSign);
             }
         }
@@ -793,7 +709,7 @@ namespace Project_OOP
                             DecideGameResult(CreateGame.CreatePvEGame(player),GameResults.Draw);
                             break;
                         }
-                        if (Check0Win())
+                        if (CheckWin(_botSign))
                         {
                             Console.Clear();
                             InterfaceGame.PrintTickTakToe(TicTacToe);
@@ -804,7 +720,7 @@ namespace Project_OOP
                         AskPlayer(player,'X');
                         Console.Clear();
                         InterfaceGame.PrintTickTakToe(TicTacToe);
-                        if (CheckXWin())
+                        if (CheckWin(_playerSign))
                         { 
                             Console.Clear();
                             Console.WriteLine("\nPlayer "+player.UserName+" won!");
@@ -837,7 +753,7 @@ namespace Project_OOP
                             DecideGameResult(CreateGame.CreatePvEGame(player),GameResults.Draw);
                             break;
                         }
-                        if (Check0Win())
+                        if (CheckWin(_playerSign))
                         {
                             Console.Clear();
                             InterfaceGame.PrintTickTakToe(TicTacToe);
@@ -850,7 +766,7 @@ namespace Project_OOP
                             AskBot();
                         }
                         Console.Clear();
-                        if (CheckXWin())
+                        if (CheckWin(_botSign))
                         { 
                             Console.Clear();
                             InterfaceGame.PrintTickTakToe(TicTacToe);

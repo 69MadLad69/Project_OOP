@@ -28,6 +28,7 @@ public class InterfaceGame
 
     public int AskForRowInput(BasicGameAccount player, char[][] ticTacToe, char playerSign)
     {
+        PrintTickTakToe(ticTacToe);
         Console.WriteLine(player.UserName+" input row, where you want to place "+playerSign+" (1-3):");
         int row = IntValidator.ParseChoiseToInt(Console.ReadLine());
         while(1 > row || row > 3)

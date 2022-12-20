@@ -27,7 +27,7 @@ namespace Project_OOP
                     }
                 }
             }
-            public List<Game> GameList = new();
+            public readonly List<Game> GameList = new();
 
             protected BasicGameAccount(string userName, string password)
             {
@@ -58,21 +58,18 @@ namespace Project_OOP
             public virtual void WinGame(String opponentName, GameTypes.BasicGame basicGame){
                 CurrentRating += basicGame.RatingAmount;
                 Game winGame = new Game(LastId(BasicGameId), basicGame.RatingAmount, opponentName, "Win", basicGame.GameType);
-                // Index = BasicGameId;
                 GameList.Add(winGame);
             }
 
             public virtual void LoseGame(String opponentName,GameTypes.BasicGame basicGame){
                 CurrentRating -= basicGame.RatingAmount;
                 Game loseGame = new Game(LastId(BasicGameId), -basicGame.RatingAmount, opponentName, "Lose", basicGame.GameType);
-                // Index = BasicGameId;
                 GameList.Add(loseGame);
             }
 
             public void DrawGame(String opponentName,GameTypes.BasicGame basicGame){
                 CurrentRating += 0;
                 Game drawGame = new Game(LastId(BasicGameId), 0, opponentName, "Draw", basicGame.GameType);
-                // Index = BasicGameId;
                 GameList.Add(drawGame);
             }
 
@@ -82,7 +79,7 @@ namespace Project_OOP
                 Console.WriteLine("| Current rating: "+CurrentRating+" | Games played: "+GameList.Count+" | Account type: "+AccountType+" |");
                 Printer.Seperator();
                 foreach (var game in GameList){
-                    Console.WriteLine("|\t Game ID:"+game.GameId+" \t|\t Opponent: "+game.OpponentName+" \t|\t Game type: "+game.GameType+" \t|\t Game result: "+game.GameResult+" \t|\t Game rating: "+game.RatingAmount+" \t|");
+                    Console.WriteLine("|\t Game ID:"+game.GameId+"  \t|\t Opponent: "+game.OpponentName+" \t|\t Game type: "+game.GameType+" \t|\t Game result: "+game.GameResult+" \t|\t Game rating: "+game.RatingAmount+" \t|");
                 }
                 Printer.Seperator();
                 Console.WriteLine();

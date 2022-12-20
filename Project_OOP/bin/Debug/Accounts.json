@@ -18,9 +18,16 @@
         "OpponentName": "bober",
         "GameResult": "Win",
         "GameType": 0
+      },
+      {
+        "GameId": 69071,
+        "RatingAmount": 32,
+        "OpponentName": "bober",
+        "GameResult": "Win",
+        "GameType": 0
       }
     ],
-    "_curRating": 32
+    "_curRating": 64
   },
   {
     "$type": "Project_OOP.GameAccount, Project_OOP",
@@ -38,6 +45,13 @@
       {
         "GameId": 69070,
         "RatingAmount": -23,
+        "OpponentName": "choko",
+        "GameResult": "Lose",
+        "GameType": 0
+      },
+      {
+        "GameId": 69071,
+        "RatingAmount": -32,
         "OpponentName": "choko",
         "GameResult": "Lose",
         "GameType": 0

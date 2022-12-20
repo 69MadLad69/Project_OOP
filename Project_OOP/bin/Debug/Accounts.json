@@ -18,16 +18,59 @@
         "OpponentName": "Bots",
         "GameResult": "Lose",
         "GameType": 1
+      },
+      {
+        "GameId": 69075,
+        "RatingAmount": -20,
+        "OpponentName": "kolyan",
+        "GameResult": "Lose",
+        "GameType": 0
+      },
+      {
+        "GameId": 69076,
+        "RatingAmount": 0,
+        "OpponentName": "Bots",
+        "GameResult": "Draw",
+        "GameType": 1
+      },
+      {
+        "GameId": 69077,
+        "RatingAmount": 18,
+        "OpponentName": "Bots",
+        "GameResult": "Win",
+        "GameType": 1
       }
     ],
-    "_curRating": 1
+    "_curRating": 19
   },
   {
     "$type": "Project_OOP.GameAccount, Project_OOP",
     "UserName": "bober",
     "Password": "bober",
     "AccountType": 0,
-    "GameList": [],
+    "GameList": [
+      {
+        "GameId": 69071,
+        "RatingAmount": 0,
+        "OpponentName": "kolyan",
+        "GameResult": "Draw",
+        "GameType": 0
+      },
+      {
+        "GameId": 69072,
+        "RatingAmount": 0,
+        "OpponentName": "kolyan",
+        "GameResult": "Draw",
+        "GameType": 0
+      },
+      {
+        "GameId": 69074,
+        "RatingAmount": -11,
+        "OpponentName": "kolyan",
+        "GameResult": "Lose",
+        "GameType": 0
+      }
+    ],
     "_curRating": 1
   },
   {
@@ -45,5 +88,49 @@
       }
     ],
     "_curRating": 1
+  },
+  {
+    "$type": "Project_OOP.PrimeDeluxeAccount, Project_OOP",
+    "UserName": "kolyan",
+    "Password": "0",
+    "AccountType": 2,
+    "GameList": [
+      {
+        "GameId": 69071,
+        "RatingAmount": 0,
+        "OpponentName": "bober",
+        "GameResult": "Draw",
+        "GameType": 0
+      },
+      {
+        "GameId": 69072,
+        "RatingAmount": 0,
+        "OpponentName": "bober",
+        "GameResult": "Draw",
+        "GameType": 0
+      },
+      {
+        "GameId": 69073,
+        "RatingAmount": 1,
+        "OpponentName": "Bots",
+        "GameResult": "Win",
+        "GameType": 1
+      },
+      {
+        "GameId": 69074,
+        "RatingAmount": 12,
+        "OpponentName": "bober",
+        "GameResult": "Win",
+        "GameType": 0
+      },
+      {
+        "GameId": 69075,
+        "RatingAmount": 29,
+        "OpponentName": "choko",
+        "GameResult": "Win",
+        "GameType": 0
+      }
+    ],
+    "_curRating": 43
   }
 ]

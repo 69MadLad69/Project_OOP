@@ -11,7 +11,7 @@ namespace Project_OOP
         protected readonly InterfaceGame InterfaceGame = new();
         private char _opponentSign, _playerSign;
         public virtual void Game(BasicGameAccount player, BasicGameAccount opponent, GameTypesNames gameType)
-        { ;
+        {
             int order = ChooseOrder();
             switch (order)
             {
@@ -76,7 +76,7 @@ namespace Project_OOP
                             }
                             break;
                         }
-                        AskPlayer(player,'X');
+                        AskPlayer(player, _playerSign);
                         Console.Clear();
                         if (CheckWin(_playerSign))
                         { 
@@ -117,7 +117,7 @@ namespace Project_OOP
                             } 
                             break;
                         }
-                        AskPlayer(opponent,'0');
+                        AskPlayer(opponent,_opponentSign);
                     } 
                     break;
                 }
@@ -207,7 +207,7 @@ namespace Project_OOP
                             } 
                             break;
                         }
-                        AskPlayer(player,'0');
+                        AskPlayer(player, _playerSign);
                     } 
                     break;
                 }
@@ -717,7 +717,7 @@ namespace Project_OOP
                             DecideGameResult(CreateGame.CreatePvEGame(player),GameResults.Lose);
                             break;
                         }
-                        AskPlayer(player,'X');
+                        AskPlayer(player,_playerSign);
                         Console.Clear();
                         InterfaceGame.PrintTickTakToe(TicTacToe);
                         if (CheckWin(_playerSign))
@@ -782,7 +782,7 @@ namespace Project_OOP
                             DecideGameResult(CreateGame.CreatePvEGame(player),GameResults.Draw);
                             break;
                         }
-                        AskPlayer(player,'0');
+                        AskPlayer(player,_playerSign);
                     } 
                     break;
                 }

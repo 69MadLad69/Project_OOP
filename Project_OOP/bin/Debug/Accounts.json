@@ -1,62 +1,42 @@
 [
   {
-    "$type": "Project_OOP.GameAccount, Project_OOP",
-    "UserName": "choko",
-    "Password": "123",
-    "AccountType": 0,
+    "$type": "Project_OOP.PrimeDeluxeAccount, Project_OOP",
+    "UserName": "kirgo",
+    "Password": "katana",
+    "AccountType": 2,
     "GameList": [
       {
-        "GameId": 69069,
-        "RatingAmount": 8,
-        "OpponentName": "bober",
-        "GameResult": "Win",
-        "GameType": 0
-      },
-      {
-        "GameId": 69070,
-        "RatingAmount": 23,
-        "OpponentName": "bober",
-        "GameResult": "Win",
-        "GameType": 0
-      },
-      {
-        "GameId": 69071,
-        "RatingAmount": 32,
-        "OpponentName": "bober",
-        "GameResult": "Win",
+        "GameId": 69068,
+        "RatingAmount": -3,
+        "OpponentName": "choko",
+        "GameResult": "Lose",
         "GameType": 0
       }
     ],
-    "_curRating": 64
+    "_curRating": 1
   },
   {
-    "$type": "Project_OOP.GameAccount, Project_OOP",
-    "UserName": "bober",
-    "Password": "bober",
-    "AccountType": 0,
+    "$type": "Project_OOP.PrimeDeluxeAccount, Project_OOP",
+    "UserName": "choko",
+    "Password": "123",
+    "AccountType": 2,
     "GameList": [
       {
-        "GameId": 69069,
-        "RatingAmount": -8,
-        "OpponentName": "choko",
-        "GameResult": "Lose",
-        "GameType": 0
-      },
-      {
-        "GameId": 69070,
-        "RatingAmount": -23,
-        "OpponentName": "choko",
-        "GameResult": "Lose",
-        "GameType": 0
-      },
-      {
-        "GameId": 69071,
-        "RatingAmount": -32,
-        "OpponentName": "choko",
-        "GameResult": "Lose",
+        "GameId": 69068,
+        "RatingAmount": 4,
+        "OpponentName": "kirgo",
+        "GameResult": "Win",
         "GameType": 0
       }
     ],
+    "_curRating": 5
+  },
+  {
+    "$type": "Project_OOP.PrimeAccount, Project_OOP",
+    "UserName": "scam",
+    "Password": "macs",
+    "AccountType": 1,
+    "GameList": [],
     "_curRating": 1
   }
 ]

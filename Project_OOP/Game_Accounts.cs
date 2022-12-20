@@ -10,8 +10,8 @@ namespace Project_OOP
             protected static readonly int BasicGameId = 69068;
             private readonly DataBase _dataBase = new();
             private protected static readonly Writer Printer = new(); 
-            public readonly string UserName;
-            public  readonly string Password;
+            public string UserName;
+            public string Password;
             public AccountTypes AccountType = AccountTypes.Basic;
             [JsonRequired]
             private int _curRating = 1;
@@ -104,6 +104,8 @@ namespace Project_OOP
             public PrimeAccount(BasicGameAccount account) : base(account.UserName,account.Password)
             {
                 AccountType = AccountTypes.Prime;
+                UserName = account.UserName;
+                Password = account.Password;
                 foreach (var game in account.GameList)
                 {
                     GameList.Add(game);
@@ -127,10 +129,10 @@ namespace Project_OOP
                     if (game.RatingAmount > 0)
                     {
                         int noBonusRating = (int)Math.Round(game.RatingAmount-Math.Round(game.RatingAmount - Math.Round(game.RatingAmount * CheckForPrint(game))) * CheckForPrint(game));
-                        Console.WriteLine("|\t Game ID:"+game.GameId+" \t|\t Opponent: "+game.OpponentName+" \t|\t Game type: "+game.GameType+" \t|\t Game result: "+game.GameResult+" \t|\t Game rating: "+game.RatingAmount+" ("+noBonusRating+" + "+(int)Math.Round(Math.Round(game.RatingAmount-game.RatingAmount*CheckForPrint(game))*CheckForPrint(game))+") \t |");
+                        Console.WriteLine("|\t Game ID:"+game.GameId+"  \t|\t Opponent: "+game.OpponentName+" \t|\t Game type: "+game.GameType+" \t|\t Game result: "+game.GameResult+" \t|\t Game rating: "+game.RatingAmount+" ("+noBonusRating+" + "+(int)Math.Round(Math.Round(game.RatingAmount-game.RatingAmount*CheckForPrint(game))*CheckForPrint(game))+") \t |");
                     }
                     else{
-                        Console.WriteLine("|\t Game ID:"+game.GameId+" \t|\t Opponent: "+game.OpponentName+" \t|\t Game type: "+game.GameType+" \t|\t Game result: "+game.GameResult+" \t|\t Game rating: "+game.RatingAmount+" ("+game.RatingAmount+" + 0) \t |");
+                        Console.WriteLine("|\t Game ID:"+game.GameId+"  \t|\t Opponent: "+game.OpponentName+" \t|\t Game type: "+game.GameType+" \t|\t Game result: "+game.GameResult+" \t|\t Game rating: "+game.RatingAmount+" ("+game.RatingAmount+" + 0) \t |");
                     }
                 }
                 Printer.Seperator();
@@ -172,6 +174,8 @@ namespace Project_OOP
             public PrimeDeluxeAccount(BasicGameAccount account) : base(account.UserName, account.Password)
             {
                 AccountType = AccountTypes.PrimeDeluxe;
+                UserName = account.UserName;
+                Password = account.Password;
                 foreach (var game in account.GameList)
                 {
                     GameList.Add(game);
@@ -200,10 +204,10 @@ namespace Project_OOP
                 foreach (var game in GameList){
                     if (game.RatingAmount > 0){
                         int noBonusRating = (int)Math.Round(game.RatingAmount-Math.Round(game.RatingAmount - Math.Round(game.RatingAmount * CheckForPrint(game))) * CheckForPrint(game));
-                        Console.WriteLine("|\t Game ID:"+game.GameId+" \t|\t Opponent: "+game.OpponentName+" \t|\t Game type: "+game.GameType+" \t|\t Game result: "+game.GameResult+" \t|\t Game rating: "+game.RatingAmount+" ("+noBonusRating+" + "+(int)Math.Round(Math.Round(game.RatingAmount-game.RatingAmount*CheckForPrint(game))*CheckForPrint(game))+") \t |");
+                        Console.WriteLine("|\t Game ID:"+game.GameId+"  \t|\t Opponent: "+game.OpponentName+" \t|\t Game type: "+game.GameType+" \t|\t Game result: "+game.GameResult+" \t|\t Game rating: "+game.RatingAmount+" ("+noBonusRating+" + "+(int)Math.Round(Math.Round(game.RatingAmount-game.RatingAmount*CheckForPrint(game))*CheckForPrint(game))+") \t |");
                     }
                     else{
-                        Console.WriteLine("|\t Game ID:"+game.GameId+" \t|\t Opponent: "+game.OpponentName+" \t|\t Game type: "+game.GameType+" \t|\t Game result: "+game.GameResult+" \t|\t Game rating: "+game.RatingAmount+" ("+(int)Math.Round(-game.RatingAmount+game.RatingAmount*-0.33)+" - "+(int)Math.Round(game.RatingAmount*-0.33)+") \t |");
+                        Console.WriteLine("|\t Game ID:"+game.GameId+"  \t|\t Opponent: "+game.OpponentName+" \t|\t Game type: "+game.GameType+" \t|\t Game result: "+game.GameResult+" \t|\t Game rating: "+game.RatingAmount+" ("+(int)Math.Round(-game.RatingAmount+game.RatingAmount*-0.33)+" - "+(int)Math.Round(game.RatingAmount*-0.33)+") \t |");
                     }
                 }
                 Printer.Seperator();

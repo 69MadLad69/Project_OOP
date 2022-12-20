@@ -9,7 +9,7 @@ namespace Project_OOP
         private readonly MainGame _gamePvP = new PvP();
         private readonly MainGame _gamePvE = new PvE();
         private readonly Writer _writer = new();
-        private Creator _creator = new();
+        private readonly Creator _creator = new();
         public void MainMenu()
         {
             _dataBase.Accounts = _dataBase.LoadAllAccountsFromDataBase();
@@ -61,7 +61,7 @@ namespace Project_OOP
             String password = Console.ReadLine();
             if (username != "" && password != "")
             {
-                _creator.CreateAccount(username, password);
+                _creator.CreateAccount(username, password,ChooseAccountType());
                 _writer.PrintTitle("You have successfully created new account!");
                 Thread.Sleep(2000);
                 Console.Clear();
@@ -73,6 +73,35 @@ namespace Project_OOP
                 _writer.PrintTitle("Error! You didn`t input Username or Password! Please try again!");
                 Thread.Sleep(2000);
                 SignUpMenu();
+            }
+        }
+        
+        private AccountTypes ChooseAccountType()
+        {
+            _writer.PrintTitle("Choose account version");
+            _writer.PrintOptionsRow("1.Basic",
+                "2.Prime",
+                "3.PrimeDeluxe");
+            while (true)
+            {
+                int typeChoise = ParseChoiseToInt(Console.ReadLine());
+                switch (typeChoise)
+                {
+                    case 1:
+                    {
+                        return AccountTypes.Basic;
+                    }
+
+                    case 2:
+                    {
+                        return AccountTypes.Prime;
+                    }
+
+                    case 3:
+                    {
+                        return AccountTypes.PrimeDeluxe;
+                    }
+                }
             }
         }
 
@@ -199,6 +228,7 @@ namespace Project_OOP
                             case 1:
                             {
                                 account = _dataBase.UpgradeToPrime(account);
+                                _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
                                 AccountMenu(account);
                                 break;
                             }
@@ -206,6 +236,7 @@ namespace Project_OOP
                             case 2:
                             {
                                 account = _dataBase.UpgradeToPrimeDeluxe(account);
+                                _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
                                 AccountMenu(account);
                                 break;
                             }
@@ -326,6 +357,7 @@ namespace Project_OOP
                         if (_dataBase.Accounts.Count < 2)
                         {
                             _writer.PrintTitle("Error! Sorry, but you`re the only player in the game. Wait for more players or choose PvE mode.");
+                            Thread.Sleep(2000);
                             Console.Clear();
                             PlayMenu(account);
                         }
@@ -342,6 +374,7 @@ namespace Project_OOP
                         if (_dataBase.Accounts.Count < 2)
                         {
                             _writer.PrintTitle("Error! Sorry, but you`re the only player in the game. Wait for more players or choose PvE mode.");
+                            Thread.Sleep(2000);
                             Console.Clear();
                             PlayMenu(account);
                         }

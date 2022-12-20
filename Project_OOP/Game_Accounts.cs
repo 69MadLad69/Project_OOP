@@ -5,13 +5,11 @@ using Project_OOP.Properties;
 
 namespace Project_OOP
 {
-    public class GameAccounts
+    public abstract class BasicGameAccount
     {
-        private static DataBase _data = new DataBase();
-        public static int BasicGameId = 690068;
-        private static readonly Writer Printer = new Writer(); 
-        public abstract class BasicGameAccount
-        {
+            protected static readonly int BasicGameId = 69068;
+            private readonly DataBase _dataBase = new();
+            private protected static readonly Writer Printer = new(); 
             public readonly string UserName;
             public  readonly string Password;
             public AccountTypes AccountType = AccountTypes.Basic;
@@ -29,7 +27,7 @@ namespace Project_OOP
                     }
                 }
             }
-            public List<Game> GameList = new List<Game>();
+            public List<Game> GameList = new();
 
             protected BasicGameAccount(string userName, string password)
             {
@@ -41,21 +39,40 @@ namespace Project_OOP
             {
             }
 
+            protected int LastId(int basicId)
+            {
+                foreach (var account in _dataBase.LoadAllAccountsFromDataBase())
+                {
+                    foreach (var game in account.GameList)
+                    {
+                        if (game.GameId > basicId)
+                        {
+                            basicId = game.GameId;
+                        }
+                    }
+                }
+                basicId++;
+                return basicId;
+            }
+
             public virtual void WinGame(String opponentName, GameTypes.BasicGame basicGame){
                 CurrentRating += basicGame.RatingAmount;
-                Game winGame = new Game(BasicGameId, basicGame.RatingAmount, opponentName, "Win", basicGame.GameType);
+                Game winGame = new Game(LastId(BasicGameId), basicGame.RatingAmount, opponentName, "Win", basicGame.GameType);
+                // Index = BasicGameId;
                 GameList.Add(winGame);
             }
 
             public virtual void LoseGame(String opponentName,GameTypes.BasicGame basicGame){
                 CurrentRating -= basicGame.RatingAmount;
-                Game loseGame = new Game(BasicGameId, -basicGame.RatingAmount, opponentName, "Lose", basicGame.GameType);
+                Game loseGame = new Game(LastId(BasicGameId), -basicGame.RatingAmount, opponentName, "Lose", basicGame.GameType);
+                // Index = BasicGameId;
                 GameList.Add(loseGame);
             }
 
             public void DrawGame(String opponentName,GameTypes.BasicGame basicGame){
                 CurrentRating += 0;
-                Game drawGame = new Game(BasicGameId, 0, opponentName, "Draw", basicGame.GameType);
+                Game drawGame = new Game(LastId(BasicGameId), 0, opponentName, "Draw", basicGame.GameType);
+                // Index = BasicGameId;
                 GameList.Add(drawGame);
             }
 
@@ -98,7 +115,7 @@ namespace Project_OOP
 
             public override void WinGame(string opponentName, GameTypes.BasicGame basicGame){
                 CurrentRating += (int)Math.Round(basicGame.RatingAmount+basicGame.RatingAmount*CheckWinStreak());
-                Game winGame = new Game(BasicGameId, (int)Math.Round(basicGame.RatingAmount+Math.Round(basicGame.RatingAmount*CheckWinStreak())), opponentName, "Win", basicGame.GameType);
+                Game winGame = new Game(LastId(BasicGameId), (int)Math.Round(basicGame.RatingAmount+Math.Round(basicGame.RatingAmount*CheckWinStreak())), opponentName, "Win", basicGame.GameType);
                 GameList.Add(winGame);
             }
 
@@ -233,7 +250,7 @@ namespace Project_OOP
             public readonly GameTypesNames GameType;
 
             public Game(int gameId, int ratingAmount, string opponentName, string gameResult, GameTypesNames gameType){
-                GameId = _data.LastId(gameId);
+                GameId = gameId;
                 RatingAmount = ratingAmount;
                 OpponentName = opponentName;
                 GameResult = gameResult;
@@ -248,5 +265,4 @@ namespace Project_OOP
             PrimeDeluxe,
             Bot
         }
-    }
 }

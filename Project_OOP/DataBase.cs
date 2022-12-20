@@ -1,59 +1,43 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 namespace Project_OOP
 {
     public class DataBase
     {
-        public List<GameAccounts.BasicGameAccount> Accounts = new List<GameAccounts.BasicGameAccount>();
-        private static readonly Random RandOpponent = new Random();
+        public List<BasicGameAccount> Accounts = new();
+        private static readonly Random RandOpponent = new();
 
-        public int LastId(int basicId)
+        public PrimeAccount UpgradeToPrime(BasicGameAccount account)
         {
-            int gameCounter = 0;
-            foreach (var account in Accounts)
-            {
-               gameCounter += account.GameList.Count;
-            }
-
-            return basicId+gameCounter;
-        }
-
-        public GameAccounts.PrimeAccount UpgradeToPrime(GameAccounts.BasicGameAccount account)
-        {
-            GameAccounts.PrimeAccount primeAccount = new GameAccounts.PrimeAccount(account);
+            PrimeAccount primeAccount = new PrimeAccount(account);
             Accounts.Remove(account);
             Accounts.Add(primeAccount);
             return primeAccount;
         }
         
-        public GameAccounts.PrimeDeluxeAccount UpgradeToPrimeDeluxe(GameAccounts.BasicGameAccount account)
+        public PrimeDeluxeAccount UpgradeToPrimeDeluxe(BasicGameAccount account)
         {
-            GameAccounts.PrimeDeluxeAccount primeDeluxeAccount = new GameAccounts.PrimeDeluxeAccount(account);
+            PrimeDeluxeAccount primeDeluxeAccount = new PrimeDeluxeAccount(account);
             Accounts.Remove(account);
             Accounts.Add(primeDeluxeAccount);
             return primeDeluxeAccount;
         }
         
-        public GameAccounts.BasicGameAccount ChooseRandomOpponent(String username)
+        public BasicGameAccount ChooseRandomOpponent(String username)
         {
-            int randI = RandOpponent.Next(0, Accounts.Count);
-            if (Accounts[randI].UserName == username)
-            {
-                ChooseRandomOpponent(username);   
-            }
-            return Accounts[randI];
+            List<BasicGameAccount> otherAccounts = Accounts.Where(account => account.UserName != username).ToList();
+            int randI = RandOpponent.Next(0, otherAccounts.Count);
+            return otherAccounts[randI];
         }
         
-        public GameAccounts.BasicGameAccount ChooseRandomNewOpponent(String playerUsername, String prevOpponentUsername)
+        public BasicGameAccount ChooseRandomNewOpponent(String playerUsername, String prevOpponentUsername)
         {
-            int randI = RandOpponent.Next(0, Accounts.Count);
-            if (Accounts[randI].UserName == playerUsername || Accounts[randI].UserName == prevOpponentUsername)
-            {
-                ChooseRandomNewOpponent(playerUsername, prevOpponentUsername);   
-            }
-            return Accounts[randI];
+            List<BasicGameAccount> otherAccounts = Accounts.Where(account => account.UserName != playerUsername && account.UserName != prevOpponentUsername).ToList();
+            int randI = RandOpponent.Next(0, otherAccounts.Count);
+            return otherAccounts[randI];
         }
 
         public bool CheckPassword(string username, string password)
@@ -71,7 +55,7 @@ namespace Project_OOP
             return false;
         }
 
-        public GameAccounts.BasicGameAccount FindAccount(string username)
+        public BasicGameAccount FindAccount(string username)
         {
             foreach (var account in Accounts)
             {
@@ -84,7 +68,7 @@ namespace Project_OOP
             return null;
         }
 
-        public void SaveAccountsToDataBase(List<GameAccounts.BasicGameAccount> accounts)
+        public void SaveAccountsToDataBase(List<BasicGameAccount> accounts)
         {
             var settings = new JsonSerializerSettings{ TypeNameHandling = TypeNameHandling.Auto };
             string serialaizedAccounts = JsonConvert.SerializeObject(accounts,Formatting.Indented ,settings);
@@ -93,7 +77,7 @@ namespace Project_OOP
 
         // public void DeleteAccountFromDataBase(string username)
         // {
-        //     GameAccounts.BasicGameAccount account = FindAccount(username);
+        //     BasicGameAccount account = FindAccount(username);
         //
         //     if (account != null)
         //     {
@@ -102,14 +86,14 @@ namespace Project_OOP
         //     }
         // }
 
-        public List<GameAccounts.BasicGameAccount> LoadAllAccountsFromDataBase()
+        public List<BasicGameAccount> LoadAllAccountsFromDataBase()
         {
             var settings = new JsonSerializerSettings{ TypeNameHandling = TypeNameHandling.Auto };
 
             string json = File.ReadAllText("Accounts.json");
 
-            List<GameAccounts.BasicGameAccount> accounts = JsonConvert.DeserializeObject<List<GameAccounts.BasicGameAccount>>(json,settings) != null?
-                JsonConvert.DeserializeObject<List<GameAccounts.BasicGameAccount>>(json,settings): new List<GameAccounts.BasicGameAccount>();
+            List<BasicGameAccount> accounts = JsonConvert.DeserializeObject<List<BasicGameAccount>>(json,settings) != null?
+                JsonConvert.DeserializeObject<List<BasicGameAccount>>(json,settings): new List<BasicGameAccount>();
             return accounts;
         }
     }

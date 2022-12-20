@@ -5,10 +5,11 @@ using Project_OOP.Properties;
 namespace Project_OOP
 {
     public class InterfaceMainMenu{
-        private readonly DataBase _dataBase = new DataBase();
+        private readonly DataBase _dataBase = new();
         private readonly MainGame _gamePvP = new PvP();
         private readonly MainGame _gamePvE = new PvE();
-        private readonly Writer _writer = new Writer();
+        private readonly Writer _writer = new();
+        private Creator _creator = new();
         public void MainMenu()
         {
             _dataBase.Accounts = _dataBase.LoadAllAccountsFromDataBase();
@@ -60,13 +61,7 @@ namespace Project_OOP
             String password = Console.ReadLine();
             if (username != "" && password != "")
             {
-                if (username != null && password != null)
-                {
-                    GameAccounts.BasicGameAccount newAccount = new GameAccounts.GameAccount(username.Trim(),password.Trim());
-                    _dataBase.Accounts.Add(newAccount);
-                }
-
-                _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
+                _creator.CreateAccount(username, password);
                 _writer.PrintTitle("You have successfully created new account!");
                 Thread.Sleep(2000);
                 Console.Clear();
@@ -143,7 +138,7 @@ namespace Project_OOP
             }
         }
         
-        public void AccountMenu(GameAccounts.BasicGameAccount account)
+        public void AccountMenu(BasicGameAccount account)
         {
             Console.Clear();
             _writer.PrintTitle("TICKTACKTOE SHARP");
@@ -164,7 +159,7 @@ namespace Project_OOP
                 case 2:
                 {
                     Console.Clear();
-                    if (account.AccountType == GameAccounts.AccountTypes.Prime || account.AccountType == GameAccounts.AccountTypes.PrimeDeluxe)
+                    if (account.AccountType == AccountTypes.Prime || account.AccountType == AccountTypes.PrimeDeluxe)
                     {
                         _writer.TableWidth = 170;
                     }
@@ -240,7 +235,7 @@ namespace Project_OOP
             }
         }
 
-        private void AfterGameMenu(GameAccounts.BasicGameAccount player, GameAccounts.BasicGameAccount opponent, GameTypesNames gameType)
+        private void AfterGameMenu(BasicGameAccount player, BasicGameAccount opponent, GameTypesNames gameType)
         {
             _writer.PrintTitle("The game ended, please choose what to do next");
             if (gameType != GameTypesNames.PvE)
@@ -263,9 +258,18 @@ namespace Project_OOP
                     {
                         case 1:
                         {
-                            GameAccounts.BasicGameAccount newOpponent = _dataBase.ChooseRandomNewOpponent(player.UserName,opponent.UserName);
-                            _gamePvP.Game(player, newOpponent,gameType);
-                            AfterGameMenu(player, newOpponent,gameType);
+                            if (_dataBase.Accounts.Count < 3)
+                            {
+                                _writer.PrintTitle("Error! Sorry, but there only one opponent you can play against. Wait for more players please.");
+                                Console.Clear();
+                                AfterGameMenu(player,opponent,gameType);
+                            }
+                            else
+                            {
+                                BasicGameAccount newOpponent = _dataBase.ChooseRandomNewOpponent(player.UserName,opponent.UserName);
+                                _gamePvP.Game(player, newOpponent,gameType);
+                                AfterGameMenu(player, newOpponent,gameType);
+                            }
                             break;
                         }
 
@@ -306,7 +310,7 @@ namespace Project_OOP
             }
         }
 
-        private void PlayMenu(GameAccounts.BasicGameAccount account){
+        private void PlayMenu(BasicGameAccount account){
             _writer.PrintTitle("Choose game mod");
             _writer.PrintOptionsRow("1.Normal",
                                     "2.Training",
@@ -326,7 +330,7 @@ namespace Project_OOP
                             PlayMenu(account);
                         }
 
-                        GameAccounts.BasicGameAccount opponent = _dataBase.ChooseRandomOpponent(account.UserName);
+                        BasicGameAccount opponent = _dataBase.ChooseRandomOpponent(account.UserName);
                         _gamePvP.Game(account, opponent, GameTypesNames.Normal);
                         _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
                         AfterGameMenu(account,opponent, GameTypesNames.Normal);
@@ -342,7 +346,7 @@ namespace Project_OOP
                             PlayMenu(account);
                         }
                         
-                        GameAccounts.BasicGameAccount opponent = _dataBase.ChooseRandomOpponent(account.UserName);
+                        BasicGameAccount opponent = _dataBase.ChooseRandomOpponent(account.UserName);
                         _gamePvP.Game(account, opponent, GameTypesNames.Training);
                         _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
                         AfterGameMenu(account,opponent, GameTypesNames.Training);
@@ -351,7 +355,7 @@ namespace Project_OOP
 
                     case 3:
                     {
-                        GameAccounts.BasicGameAccount opponent = new GameAccounts.BotAccount("Bot", "0000");
+                        BasicGameAccount opponent = new BotAccount("Bot", "0000");
                         _gamePvE.Game(account, opponent, GameTypesNames.PvE);
                         _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
                         AfterGameMenu(account,opponent, GameTypesNames.PvE);

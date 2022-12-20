@@ -6,31 +6,17 @@ namespace Project_OOP
     public abstract class MainGame
     {
         private protected readonly char[][] TicTacToe = {"   ".ToCharArray(), "   ".ToCharArray(), "   ".ToCharArray()};
-        private static readonly Random RandOrder = new Random();
-        private protected readonly GameTypes.CreateGame CreateGame = new GameTypes.CreateGame();
-        
-        private static int ParseChoiseToInt(string choiseString)
-        { 
-            int choice = 0;
-            try
-            {
-                choice = int.Parse(choiseString ?? string.Empty);
-            }
-            catch (FormatException)
-            {
-            }
-
-            return choice;
-        }
-        public virtual void Game(GameAccounts.BasicGameAccount player, GameAccounts.BasicGameAccount opponent, GameTypesNames gameType)
+        private static readonly Random RandOrder = new();
+        private protected readonly GameTypes.CreateGame CreateGame = new();
+        protected readonly InterfaceGame InterfaceGame = new();
+        public virtual void Game(BasicGameAccount player, BasicGameAccount opponent, GameTypesNames gameType)
         {
-            switch (ChooseOrder()) 
+            int order = ChooseOrder();
+            InterfaceGame.ShowSignsOrder(player.UserName,opponent.UserName,order);
+            switch (order) 
             { 
                 case 1: 
-                { 
-                    Console.WriteLine("As X plays - "+player.UserName); 
-                    Console.WriteLine("As 0 plays - "+opponent.UserName);
-                    Thread.Sleep(2000);
+                {
                     while (true) 
                     { 
                         Console.Clear();
@@ -73,7 +59,7 @@ namespace Project_OOP
                             }
                             break;
                         }
-                        AskX(player);
+                        AskPlayer(player,'X');
                         Console.Clear();
                         if (CheckXWin())
                         { 
@@ -114,16 +100,13 @@ namespace Project_OOP
                             } 
                             break;
                         }
-                        Ask0(opponent);
+                        AskPlayer(opponent,'0');
                     } 
                     break;
                 }
                 
                 case 2: 
                 {
-                    Console.WriteLine("As X plays - "+opponent.UserName); 
-                    Console.WriteLine("As 0 plays - "+player.UserName);
-                    Thread.Sleep(2000);
                     while (true) 
                     { 
                         Console.Clear();
@@ -166,7 +149,7 @@ namespace Project_OOP
                             }
                             break;
                         }
-                        AskX(opponent);
+                        AskPlayer(opponent,'X');
                         Console.Clear();
                         if (CheckXWin())
                         { 
@@ -207,7 +190,7 @@ namespace Project_OOP
                             } 
                             break;
                         }
-                        Ask0(player);
+                        AskPlayer(player,'0');
                     } 
                     break;
                 }
@@ -460,51 +443,20 @@ namespace Project_OOP
             return false;
         }
 
-        private protected void AskX(GameAccounts.BasicGameAccount player)
+        private protected void AskPlayer(BasicGameAccount player, char playerSign)
         {
-            PrintTickTakToe();
-            Console.WriteLine(player.UserName+" input row, where you want to place X (1-3):");
-            int rowChoice = ParseChoiseToInt(Console.ReadLine());
-            Console.WriteLine(player.UserName+" input column, where you want to place X (1-3):");
-            int colChoice = ParseChoiseToInt(Console.ReadLine());
-            if (rowChoice > 3 || rowChoice < 1 || colChoice > 3 || colChoice < 1)
-            {
-                Console.WriteLine("Please input numbers in a range 1-3");
-                AskX(player);
-            }
+            int rowChoice = InterfaceGame.AskForRowInput(player,TicTacToe,playerSign);
+            int colChoice = InterfaceGame.AskForColInput(player,TicTacToe,playerSign);
             if (CheckSpace(rowChoice-1, colChoice-1))
             {
-                TicTacToe[rowChoice - 1][colChoice - 1] = 'X';
+                TicTacToe[rowChoice - 1][colChoice - 1] = playerSign;
             }
             else
             {
-                Console.WriteLine("This place is taken. Please choose other.");
-                AskX(player);
-            }
-        }
-
-        private protected void Ask0(GameAccounts.BasicGameAccount player)
-        {
-            PrintTickTakToe();
-            Console.WriteLine(player.UserName+" input row, where you want to place 0 (1-3):");
-            int rowChoice = ParseChoiseToInt(Console.ReadLine());
-            Console.WriteLine(player.UserName+" input column, where you want to place 0 (1-3):");
-            int colChoice = ParseChoiseToInt(Console.ReadLine());
-            if (rowChoice > 3 || rowChoice < 1 || colChoice > 3 || colChoice < 1)
-            {
-                Console.WriteLine("Please input numbers in a range 1-3");
-                Thread.Sleep(2000);
                 Console.Clear();
-                AskX(player);
-            }
-            if (CheckSpace(rowChoice-1, colChoice-1))
-            {
-                TicTacToe[rowChoice - 1][colChoice - 1] = '0';
-            }
-            else
-            {
+                InterfaceGame.PrintTickTakToe(TicTacToe);
                 Console.WriteLine("This place is taken. Please choose other.");
-                Ask0(player);
+                AskPlayer(player,playerSign);
             }
         }
 
@@ -519,22 +471,8 @@ namespace Project_OOP
             }
         }
 
-        private protected void PrintTickTakToe()
-        {
-            for (int i = 0; i < TicTacToe.Length; i++)
-            {
-                Console.Write("| ");
-                for (int j = 0; j < TicTacToe[0].Length; j++)
-                {
-                    Console.Write(TicTacToe[i][j] + " | ");
-                }
-                Console.Write("\n");
-            }
-        }
-
         private protected void DecideGameResult(GameTypes.BasicGame game, Enum gameResult)
         {
-            GameAccounts.BasicGameId++;
             switch (gameResult)
             {
                 case GameResults.Win:
@@ -821,7 +759,7 @@ namespace Project_OOP
             return false;
         }
 
-        public override void Game(GameAccounts.BasicGameAccount player, GameAccounts.BasicGameAccount opponent, GameTypesNames gameType)
+        public override void Game(BasicGameAccount player, BasicGameAccount opponent, GameTypesNames gameType)
         {
             _order = ChooseOrder();
             switch (_order)
@@ -840,12 +778,11 @@ namespace Project_OOP
                     break;
                 }
             }
+            
             switch (_order) 
             { 
                 case 1: 
-                { 
-                    Console.WriteLine("As X plays - "+player.UserName); 
-                    Console.WriteLine("As 0 plays - "+opponent.UserName);
+                {
                     Thread.Sleep(2000);
                     while (true) 
                     { 
@@ -859,14 +796,14 @@ namespace Project_OOP
                         if (Check0Win())
                         {
                             Console.Clear();
-                            PrintTickTakToe();
+                            InterfaceGame.PrintTickTakToe(TicTacToe);
                             Console.WriteLine("\nPlayer "+opponent.UserName+" won!");
                             DecideGameResult(CreateGame.CreatePvEGame(player),GameResults.Lose);
                             break;
                         }
-                        AskX(player);
+                        AskPlayer(player,'X');
                         Console.Clear();
-                        PrintTickTakToe();
+                        InterfaceGame.PrintTickTakToe(TicTacToe);
                         if (CheckXWin())
                         { 
                             Console.Clear();
@@ -890,13 +827,10 @@ namespace Project_OOP
                 
                 case 2: 
                 {
-                    Console.WriteLine("As X plays - "+opponent.UserName); 
-                    Console.WriteLine("As 0 plays - "+player.UserName);
-                    Thread.Sleep(2000);
                     while (true) 
                     { 
                         Console.Clear();
-                        PrintTickTakToe();
+                        InterfaceGame.PrintTickTakToe(TicTacToe);
                         if (CheckDraw())
                         {
                             Console.WriteLine("\nIt`s a draw!");
@@ -906,7 +840,7 @@ namespace Project_OOP
                         if (Check0Win())
                         {
                             Console.Clear();
-                            PrintTickTakToe();
+                            InterfaceGame.PrintTickTakToe(TicTacToe);
                             Console.WriteLine("\nPlayer "+player.UserName+" won!");
                             DecideGameResult(CreateGame.CreatePvEGame(player),GameResults.Win);
                             break;
@@ -919,7 +853,7 @@ namespace Project_OOP
                         if (CheckXWin())
                         { 
                             Console.Clear();
-                            PrintTickTakToe();
+                            InterfaceGame.PrintTickTakToe(TicTacToe);
                             Console.WriteLine("\nPlayer "+opponent.UserName+" won!");
                             DecideGameResult(CreateGame.CreatePvEGame(player),GameResults.Lose);
                             break;
@@ -927,12 +861,12 @@ namespace Project_OOP
                         if (CheckDraw())
                         {
                             Console.Clear();
-                            PrintTickTakToe();
+                            InterfaceGame.PrintTickTakToe(TicTacToe);
                             Console.WriteLine("\nIt`s a draw!");
                             DecideGameResult(CreateGame.CreatePvEGame(player),GameResults.Draw);
                             break;
                         }
-                        Ask0(player);
+                        AskPlayer(player,'0');
                     } 
                     break;
                 }
@@ -949,5 +883,11 @@ namespace Project_OOP
         Win,
         Lose,
         Draw
+    }
+
+    public enum Signs
+    {
+        X,
+        O
     }
 }

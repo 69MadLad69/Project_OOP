@@ -1,79 +1,48 @@
 [
   {
-    "$type": "Project_OOP.GameAccounts+GameAccount, Project_OOP",
-    "UserName": "Oleg",
-    "Password": "oleja",
-    "AccountType": 0,
-    "GameList": [
-      {
-        "GameId": 690077,
-        "RatingAmount": -19,
-        "OpponentName": "Bots",
-        "GameResult": "Lose",
-        "GameType": 1
-      },
-      {
-        "GameId": 690071,
-        "RatingAmount": -22,
-        "OpponentName": "tilt",
-        "GameResult": "Lose",
-        "GameType": 0
-      }
-    ],
-    "_curRating": 1
-  },
-  {
-    "$type": "Project_OOP.GameAccounts+GameAccount, Project_OOP",
-    "UserName": "kirgo",
-    "Password": "katana",
-    "AccountType": 0,
-    "GameList": [
-      {
-        "GameId": 690076,
-        "RatingAmount": 0,
-        "OpponentName": "Bots",
-        "GameResult": "Draw",
-        "GameType": 1
-      },
-      {
-        "GameId": 690070,
-        "RatingAmount": -4,
-        "OpponentName": "tilt",
-        "GameResult": "Lose",
-        "GameType": 0
-      }
-    ],
-    "_curRating": 1
-  },
-  {
-    "$type": "Project_OOP.GameAccounts+GameAccount, Project_OOP",
-    "UserName": "aboba",
+    "$type": "Project_OOP.GameAccount, Project_OOP",
+    "UserName": "choko",
     "Password": "123",
     "AccountType": 0,
-    "GameList": [],
-    "_curRating": 1
-  },
-  {
-    "$type": "Project_OOP.GameAccounts+GameAccount, Project_OOP",
-    "UserName": "tilt",
-    "Password": "notilt",
-    "AccountType": 0,
     "GameList": [
       {
-        "GameId": 690071,
-        "RatingAmount": 22,
-        "OpponentName": "Oleg",
+        "GameId": 69069,
+        "RatingAmount": 8,
+        "OpponentName": "bober",
         "GameResult": "Win",
         "GameType": 0
       },
       {
-        "GameId": 690070,
-        "RatingAmount": 4,
-        "OpponentName": "kirgo",
+        "GameId": 69070,
+        "RatingAmount": 23,
+        "OpponentName": "bober",
         "GameResult": "Win",
         "GameType": 0
       }
     ],
-    "_curRating": 27
+    "_curRating": 32
+  },
+  {
+    "$type": "Project_OOP.GameAccount, Project_OOP",
+    "UserName": "bober",
+    "Password": "bober",
+    "AccountType": 0,
+    "GameList": [
+      {
+        "GameId": 69069,
+        "RatingAmount": -8,
+        "OpponentName": "choko",
+        "GameResult": "Lose",
+        "GameType": 0
+      },
+      {
+        "GameId": 69070,
+        "RatingAmount": -23,
+        "OpponentName": "choko",
+        "GameResult": "Lose",
+        "GameType": 0
+      }
+    ],
+    "_curRating": 1
   }
 ]

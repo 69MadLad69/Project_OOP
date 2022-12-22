@@ -2,7 +2,7 @@ using System;
 
 namespace Project_OOP;
 
-public class IntValidator
+public static class IntValidator
 {
     public static int ParseChoiseToInt(string choiseString)
     { 

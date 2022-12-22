@@ -10,7 +10,7 @@ namespace Project_OOP
         private readonly MainGame _gamePvE = new PvE();
         private readonly Writer _writer = new();
         private readonly Creator _creator = new();
-        private readonly IntValidator _validator = new();
+        private Hash _hash = new();
         public void MainMenu()
         {
             _dataBase.Accounts = _dataBase.LoadAllAccountsFromDataBase();
@@ -62,7 +62,7 @@ namespace Project_OOP
             String password = Console.ReadLine();
             if (username != "" && password != "")
             {
-                _creator.CreateAccount(username, password,ChooseAccountType());
+                _creator.CreateAccount(username, _hash.HashPassword(password), ChooseAccountType());
                 _writer.PrintTitle("You have successfully created new account!");
                 Thread.Sleep(2000);
                 Console.Clear();
@@ -81,8 +81,8 @@ namespace Project_OOP
         {
             _writer.PrintTitle("Choose account version");
             _writer.PrintOptionsRow("1.Basic",
-                "2.Prime",
-                "3.PrimeDeluxe");
+                                    "2.Prime",
+                                    "3.PrimeDeluxe");
             while (true)
             {
                 int typeChoise = IntValidator.ParseChoiseToInt(Console.ReadLine());
@@ -127,10 +127,11 @@ namespace Project_OOP
             String password = Console.ReadLine();
             if (password != null && username != null)
             {
-                if (_dataBase.CheckPassword(username.Trim(), password.Trim()))
+                if (_dataBase.CheckPassword(username.Trim(), _hash.HashPassword(password.Trim())))
                 {
                     _writer.PrintTitle("You have successfully logged into "+username+" account!");
                     Thread.Sleep(2000);
+                    Console.Clear();
                     AccountMenu(_dataBase.FindAccount(username));
                 }
                 else
@@ -216,40 +217,8 @@ namespace Project_OOP
                 
                 case 4:
                 {
-                    Console.Clear();
-                    _writer.PrintTitle("Shop");
-                    _writer.PrintOptionsRow("1.Prime",
-                                            "2.PrimeDeluxe",
-                                            "3.Go back");
-                    while (true)
-                    {
-                        int upgradeMenuChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
-                        switch (upgradeMenuChoice)
-                        {
-                            case 1:
-                            {
-                                account = _dataBase.UpgradeToPrime(account);
-                                _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
-                                AccountMenu(account);
-                                break;
-                            }
-
-                            case 2:
-                            {
-                                account = _dataBase.UpgradeToPrimeDeluxe(account);
-                                _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
-                                AccountMenu(account);
-                                break;
-                            }
-
-                            case 3:
-                            {
-                                Console.Clear();
-                                AccountMenu(account);
-                                break;
-                            }
-                        }
-                    }
+                    ShopMenu(account);
+                    break;
                 }
                     
                 case 5:{
@@ -265,6 +234,204 @@ namespace Project_OOP
                     break;
                 }
             }
+        }
+
+        private void ShopMenu(BasicGameAccount account)
+        {
+            Console.Clear();
+            _writer.PrintTitle("Shop");
+            switch (account.AccountType)
+            {
+                case AccountTypes.Basic:
+                {
+                    _writer.PrintOptionsRow("1.Prime", "2.PrimeDeluxe", "3.Go back");
+                    break;
+                }
+
+                case AccountTypes.Prime:
+                {
+                    _writer.PrintOptionsRow("1.Normal", "2.PrimeDeluxe", "3.Go back");
+                    break;
+                }
+
+                case AccountTypes.PrimeDeluxe:
+                {
+                    _writer.PrintOptionsRow("1.Normal", "2.Prime", "3.Go back");
+                    break;
+                }
+            }
+
+            while (true)
+            {
+                AccountTypes? accountType = UpgradeChoice(account);
+                switch (accountType)
+                {
+                    case AccountTypes.Basic:
+                    {
+                        account = _dataBase.ReturnToBasic(account);
+                        _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
+                        AccountMenu(account);
+                        break;
+                    }
+
+                    case AccountTypes.Prime:
+                    {
+                        account = _dataBase.UpgradeToPrime(account);
+                        _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
+                        AccountMenu(account);
+                        break;
+                    }
+
+                    case AccountTypes.PrimeDeluxe:
+                    {
+                        account = _dataBase.UpgradeToPrimeDeluxe(account);
+                        _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
+                        AccountMenu(account);
+                        break;
+                    }
+                }
+            }
+        }
+
+        private AccountTypes? UpgradeChoice(BasicGameAccount account)
+        {
+            int upgradeMenuChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+            switch (account.AccountType)
+            {
+                case AccountTypes.Basic:
+                {
+                    switch (upgradeMenuChoice)
+                    {
+                        case 1:
+                        {
+                            return AccountTypes.Prime;
+                        }
+
+                        case 2:
+                        {
+                            return AccountTypes.PrimeDeluxe;
+                        }
+                        
+                        case 3:
+                        {
+                            Console.Clear();
+                            AccountMenu(account);
+                            break;
+                        }
+                    }
+                    break;
+                }
+
+                case AccountTypes.Prime:
+                {
+                    switch (upgradeMenuChoice)
+                    {
+                        case 1:
+                        {
+                            Console.Clear();
+                            _writer.PrintTitle("This AccountType is worse than owned. Do you really wish to change?");
+                            _writer.PrintOptionsRow("1.Yes",
+                                                    "2.No");
+                            while (true)
+                            {
+                                int confirmChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+                                switch (confirmChoice)
+                                {
+                                    case 1:
+                                    {
+                                        return AccountTypes.Basic;
+                                    }
+
+                                    case 2:
+                                    {
+                                        ShopMenu(account);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        case 2:
+                        {
+                            return AccountTypes.PrimeDeluxe;
+                        }
+                        
+                        case 3:
+                        {
+                            Console.Clear();
+                            AccountMenu(account);
+                            break;
+                        }
+                    }
+                    break;
+                }
+                
+                case AccountTypes.PrimeDeluxe:
+                {
+                    switch (upgradeMenuChoice)
+                    {
+                        case 1:
+                        {
+                            Console.Clear();
+                            _writer.PrintTitle("This AccountType is worse than owned. Do you really wish to change?");
+                            _writer.PrintOptionsRow("1.Yes",
+                                                    "2.No");
+                            while (true)
+                            {
+                                int confirmChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+                                switch (confirmChoice)
+                                {
+                                    case 1:
+                                    {
+                                        return AccountTypes.Basic;
+                                    }
+
+                                    case 2:
+                                    {
+                                        ShopMenu(account);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        case 2:
+                        {
+                            Console.Clear();
+                            _writer.PrintTitle("This AccountType is worse than owned. Do you really wish to change?");
+                            _writer.PrintOptionsRow("1.Yes",
+                                                    "2.No");
+                            while (true)
+                            {
+                                int confirmChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+                                switch (confirmChoice)
+                                {
+                                    case 1:
+                                    {
+                                        return AccountTypes.Prime;
+                                    }
+
+                                    case 2:
+                                    {
+                                        ShopMenu(account);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        case 3:
+                        {
+                            Console.Clear();
+                            AccountMenu(account);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+
+            return null;
         }
 
         private void AfterGameMenu(BasicGameAccount player, BasicGameAccount opponent, GameTypesNames gameType)
@@ -293,12 +460,14 @@ namespace Project_OOP
                             if (_dataBase.Accounts.Count < 3)
                             {
                                 _writer.PrintTitle("Error! Sorry, but there only one opponent you can play against. Wait for more players please.");
+                                Thread.Sleep(2000);
                                 Console.Clear();
                                 AfterGameMenu(player,opponent,gameType);
                             }
                             else
                             {
                                 BasicGameAccount newOpponent = _dataBase.ChooseRandomNewOpponent(player.UserName,opponent.UserName);
+                                while (!ConfirmOpponent(player, newOpponent)){}
                                 _gamePvP.Game(player, newOpponent,gameType);
                                 AfterGameMenu(player, newOpponent,gameType);
                             }
@@ -307,6 +476,7 @@ namespace Project_OOP
 
                         case 2:
                         {
+                            while (!ConfirmOpponent(player, opponent)){}
                             _gamePvP.Game(player,opponent,gameType);
                             AfterGameMenu(player,opponent,gameType);
                             break; 
@@ -364,6 +534,7 @@ namespace Project_OOP
                         }
 
                         BasicGameAccount opponent = _dataBase.ChooseRandomOpponent(account.UserName);
+                        while (!ConfirmOpponent(account, opponent)){}
                         _gamePvP.Game(account, opponent, GameTypesNames.Normal);
                         _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
                         AfterGameMenu(account,opponent, GameTypesNames.Normal);
@@ -381,6 +552,7 @@ namespace Project_OOP
                         }
                         
                         BasicGameAccount opponent = _dataBase.ChooseRandomOpponent(account.UserName);
+                        while (!ConfirmOpponent(account, opponent)){}
                         _gamePvP.Game(account, opponent, GameTypesNames.Training);
                         _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
                         AfterGameMenu(account,opponent, GameTypesNames.Training);
@@ -403,6 +575,48 @@ namespace Project_OOP
                         break;
                     }
                 }   
+            }
+        }
+
+        private bool ConfirmOpponent(BasicGameAccount player,BasicGameAccount opponent)
+        {
+            Console.Clear();
+            _writer.PrintTitle("User "+opponent.UserName+" please enter Password to accept duel");
+            String password = Console.ReadLine();
+            if (password != null)
+            {
+                if (_hash.HashPassword(password) == opponent.Password)
+                {
+                    _writer.PrintTitle(opponent.UserName+" have successfully accepted duel!");
+                    Thread.Sleep(2000);
+                    return true;
+                }
+            }
+            Thread.Sleep(2000);
+            Console.Clear();
+            _writer.PrintTitle("Error! Password doesn`t exist in DataBase!");
+            _writer.PrintOptionsRow("1.Try again", 
+                                    "2.Decline duel");
+            while (true)
+            {
+                int duelChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+                switch (duelChoice)
+                {
+                    case 1:
+                    {
+                        ConfirmOpponent(player, opponent);
+                        break;
+                    }
+
+                    case 2:
+                    {
+                        Console.Clear();
+                        _writer.PrintTitle("Opponent "+opponent.UserName+ " declined duel");
+                        Thread.Sleep(2000);
+                        AccountMenu(player);
+                        break;
+                    }
+                }
             }
         }
     }

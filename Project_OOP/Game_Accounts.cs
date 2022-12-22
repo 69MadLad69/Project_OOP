@@ -88,7 +88,20 @@ namespace Project_OOP
 
         public class GameAccount : BasicGameAccount
         {
+            public GameAccount(){}
+
             public GameAccount(string userName, string password) : base(userName,password){
+                
+            }
+
+            public GameAccount(BasicGameAccount account) : base(account.UserName, account.Password)
+            {
+                UserName = account.UserName;
+                Password = account.Password;
+                foreach (var game in account.GameList)
+                {
+                    GameList.Add(game);
+                }
             }
         }
         

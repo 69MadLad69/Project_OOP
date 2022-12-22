@@ -47,6 +47,7 @@
         <Compile Include="DataBase.cs" />
         <Compile Include="Game_Accounts.cs" />
         <Compile Include="Game_Types.cs" />
+        <Compile Include="Hash.cs" />
         <Compile Include="Interface_Game.cs" />
         <Compile Include="Interface_MainMenu.cs" />
         <Compile Include="Int_Validator.cs" />

@@ -9,6 +9,15 @@ namespace Project_OOP
     {
         public List<BasicGameAccount> Accounts = new();
         private static readonly Random RandOpponent = new();
+        private Hash _hash = new();
+
+        public GameAccount ReturnToBasic(BasicGameAccount account)
+        {
+            GameAccount normalAccount = new GameAccount(account);
+            Accounts.Remove(account);
+            Accounts.Add(normalAccount);
+            return normalAccount;
+        }
 
         public PrimeAccount UpgradeToPrime(BasicGameAccount account)
         {

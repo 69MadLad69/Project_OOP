@@ -2,7 +2,7 @@ using System;
 namespace Project_OOP
 {
     public class GameTypes{
-        private static readonly Random RandRating = new Random();
+        private static readonly Random RandRating = new();
         public abstract class BasicGame{
             public GameTypesNames GameType;
             public int RatingAmount;

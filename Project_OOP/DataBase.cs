@@ -9,7 +9,6 @@ namespace Project_OOP
     {
         public List<BasicGameAccount> Accounts = new();
         private static readonly Random RandOpponent = new();
-        private Hash _hash = new();
 
         public GameAccount ReturnToBasic(BasicGameAccount account)
         {
@@ -51,17 +50,23 @@ namespace Project_OOP
 
         public bool CheckPassword(string username, string password)
         {
-            foreach (var account in Accounts)
+            if (FindAccount(username).Password == password)
             {
-                if (account.UserName == username)
-                {
-                    if (account.Password == password)
-                    {
-                        return true;
-                    }
-                }
+                return true; 
             }
             return false;
+        }
+        
+        public bool SignUpUsernameCheck(string username)
+        {
+            foreach (var account in Accounts)
+            {
+                if (account.UserName == username.Trim())
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public BasicGameAccount FindAccount(string username)
@@ -83,17 +88,6 @@ namespace Project_OOP
             string serialaizedAccounts = JsonConvert.SerializeObject(accounts,Formatting.Indented ,settings);
             File.WriteAllText("Accounts.json",serialaizedAccounts);
         }
-
-        // public void DeleteAccountFromDataBase(string username)
-        // {
-        //     BasicGameAccount account = FindAccount(username);
-        //
-        //     if (account != null)
-        //     {
-        //         Accounts.Remove(account);
-        //         SaveAccountsToDataBase(Accounts);
-        //     }
-        // }
 
         public List<BasicGameAccount> LoadAllAccountsFromDataBase()
         {

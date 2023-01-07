@@ -800,10 +800,4 @@ namespace Project_OOP
         Lose,
         Draw
     }
-
-    public enum Signs
-    {
-        X,
-        O
-    }
 }

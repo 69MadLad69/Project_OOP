@@ -77,11 +77,11 @@ namespace Project_OOP
                 Console.WriteLine();
                 Console.WriteLine(UserName+" stats:");
                 Console.WriteLine("| Current rating: "+CurrentRating+" | Games played: "+GameList.Count+" | Account type: "+AccountType+" |");
-                Printer.Seperator();
+                Printer.Separator();
                 foreach (var game in GameList){
                     Console.WriteLine("|\t Game ID:"+game.GameId+"  \t|\t Opponent: "+game.OpponentName+" \t|\t Game type: "+game.GameType+" \t|\t Game result: "+game.GameResult+" \t|\t Game rating: "+game.RatingAmount+" \t|");
                 }
-                Printer.Seperator();
+                Printer.Separator();
                 Console.WriteLine();
             }
     }
@@ -131,13 +131,14 @@ namespace Project_OOP
                 GameList.Add(winGame);
             }
 
-            public override void PrintStats(){
-                Printer.TableWidth = 170;
+            public override void PrintStats()
+            {
+                Printer.ChangeTableWidth(170);
                 Console.WriteLine();
                 Console.WriteLine(UserName+" stats:");
                 Console.WriteLine("| Current rating: "+CurrentRating+" | Games played: "+GameList.Count+" | Account type: "+AccountType+" |");
                 Console.WriteLine();
-                Printer.Seperator();
+                Printer.Separator();
                 foreach (var game in GameList){
                     if (game.RatingAmount > 0)
                     {
@@ -148,9 +149,9 @@ namespace Project_OOP
                         Console.WriteLine("|\t Game ID:"+game.GameId+"  \t|\t Opponent: "+game.OpponentName+" \t|\t Game type: "+game.GameType+" \t|\t Game result: "+game.GameResult+" \t|\t Game rating: "+game.RatingAmount+" ("+game.RatingAmount+" + 0) \t |");
                     }
                 }
-                Printer.Seperator();
+                Printer.Separator();
                 Console.WriteLine();
-                Printer.TableWidth = 161;
+                Printer.ChangeTableWidth(161);
             }
 
             private double CheckWinStreak(){
@@ -208,12 +209,12 @@ namespace Project_OOP
             }
             
             public override void PrintStats(){
-                Printer.TableWidth = 170;
+                Printer.ChangeTableWidth(170);
                 Console.WriteLine();
                 Console.WriteLine(UserName+" stats:");
                 Console.WriteLine("| Current rating: "+CurrentRating+" | Games played: "+GameList.Count+" | Account type: "+AccountType+" |");
                 Console.WriteLine();
-                Printer.Seperator();
+                Printer.Separator();
                 foreach (var game in GameList){
                     if (game.RatingAmount > 0){
                         int noBonusRating = (int)Math.Round(game.RatingAmount-Math.Round(game.RatingAmount - Math.Round(game.RatingAmount * CheckForPrint(game))) * CheckForPrint(game));
@@ -223,9 +224,9 @@ namespace Project_OOP
                         Console.WriteLine("|\t Game ID:"+game.GameId+"  \t|\t Opponent: "+game.OpponentName+" \t|\t Game type: "+game.GameType+" \t|\t Game result: "+game.GameResult+" \t|\t Game rating: "+game.RatingAmount+" ("+(int)Math.Round(-game.RatingAmount+game.RatingAmount*-0.33)+" - "+(int)Math.Round(game.RatingAmount*-0.33)+") \t |");
                     }
                 }
-                Printer.Seperator();
+                Printer.Separator();
                 Console.WriteLine();
-                Printer.TableWidth = 161;
+                Printer.ChangeTableWidth(161);
             }
 
             private double CheckForPrint(Game game){

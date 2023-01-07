@@ -4,12 +4,12 @@ namespace Project_OOP;
 
 public static class IntValidator
 {
-    public static int ParseChoiseToInt(string choiseString)
+    public static int ParseChoiceToInt(string choiсeString)
     { 
         int choice = 0;
         try
         {
-            choice = int.Parse(choiseString ?? string.Empty);
+            choice = int.Parse(choiсeString ?? string.Empty);
         }
         catch (FormatException)
         {

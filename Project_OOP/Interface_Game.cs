@@ -30,13 +30,13 @@ public class InterfaceGame
     {
         PrintTickTakToe(ticTacToe);
         Console.WriteLine(player.UserName+" input row, where you want to place "+playerSign+" (1-3):");
-        int row = IntValidator.ParseChoiseToInt(Console.ReadLine());
+        int row = IntValidator.ParseChoiceToInt(Console.ReadLine());
         while(1 > row || row > 3)
         {
             Console.Clear();
             PrintTickTakToe(ticTacToe);
             Console.WriteLine("Please input numbers in a range 1-3");
-            row = IntValidator.ParseChoiseToInt(Console.ReadLine());
+            row = IntValidator.ParseChoiceToInt(Console.ReadLine());
         }
         return row;
     }
@@ -44,13 +44,13 @@ public class InterfaceGame
     public int AskForColInput(BasicGameAccount player, char[][] ticTacToe, char playerSign)
     {
         Console.WriteLine(player.UserName+" input column, where you want to place "+playerSign+" (1-3):");
-        int col = IntValidator.ParseChoiseToInt(Console.ReadLine());
+        int col = IntValidator.ParseChoiceToInt(Console.ReadLine());
         while(1 > col || col > 3)
         {
             Console.Clear();
             PrintTickTakToe(ticTacToe);
             Console.WriteLine("Please input numbers in a range 1-3");
-            col = IntValidator.ParseChoiseToInt(Console.ReadLine());
+            col = IntValidator.ParseChoiceToInt(Console.ReadLine());
         }
         return col;
     }

@@ -1,6 +1,6 @@
 namespace Project_OOP
 {
-    public class Creator
+    public class AccountCreator
     {
         private readonly DataBase _dataBase = new();
         public void CreateAccount(string username, string password, AccountTypes accountType)

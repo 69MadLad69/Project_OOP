@@ -9,8 +9,8 @@ namespace Project_OOP
         private readonly MainGame _gamePvP = new PvP();
         private readonly MainGame _gamePvE = new PvE();
         private readonly Writer _writer = new();
-        private readonly Creator _creator = new();
-        private Hash _hash = new();
+        private readonly AccountCreator _accountCreator = new();
+        private readonly Hash _hash = new();
         public void MainMenu()
         {
             _dataBase.Accounts = _dataBase.LoadAllAccountsFromDataBase();
@@ -18,7 +18,7 @@ namespace Project_OOP
             _writer.PrintOptionsRow("1.Log in",
                                     "2.Sign up",
                                     "3.Exit");
-            int choice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+            int choice = IntValidator.ParseChoiceToInt(Console.ReadLine());
 
             switch (choice)
             {
@@ -52,7 +52,7 @@ namespace Project_OOP
             Console.Clear();
             _writer.PrintTitle("Please enter Username");
             String username = Console.ReadLine();
-            if (!SignUpUsernameCheck(username))
+            if (!_dataBase.SignUpUsernameCheck(username))
             {
                 _writer.PrintTitle("Error! Account with such Username already exists! Please input other Username!");
                 Thread.Sleep(2500);
@@ -62,7 +62,7 @@ namespace Project_OOP
             String password = Console.ReadLine();
             if (username != "" && password != "")
             {
-                _creator.CreateAccount(username, _hash.HashPassword(password), ChooseAccountType());
+                _accountCreator.CreateAccount(username, _hash.HashPassword(password), ChooseAccountType());
                 _writer.PrintTitle("You have successfully created new account!");
                 Thread.Sleep(2000);
                 Console.Clear();
@@ -85,8 +85,8 @@ namespace Project_OOP
                                     "3.PrimeDeluxe");
             while (true)
             {
-                int typeChoise = IntValidator.ParseChoiseToInt(Console.ReadLine());
-                switch (typeChoise)
+                int typeChoice = IntValidator.ParseChoiceToInt(Console.ReadLine());
+                switch (typeChoice)
                 {
                     case 1:
                     {
@@ -105,18 +105,7 @@ namespace Project_OOP
                 }
             }
         }
-
-        private bool SignUpUsernameCheck(string username)
-        {
-            foreach (var account in _dataBase.Accounts)
-            {
-                if (account.UserName == username.Trim())
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        
 
         private void LogInMenu()
         {
@@ -143,7 +132,7 @@ namespace Project_OOP
                                             "2.Return to main menu");
                     while (true)
                     {
-                        int logInChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+                        int logInChoice = IntValidator.ParseChoiceToInt(Console.ReadLine());
                         switch (logInChoice)
                         {
                             case 1:
@@ -168,8 +157,8 @@ namespace Project_OOP
                 LogInMenu();
             }
         }
-        
-        public void AccountMenu(BasicGameAccount account)
+
+        private void AccountMenu(BasicGameAccount account)
         {
             Console.Clear();
             _writer.PrintTitle("TICKTACKTOE SHARP");
@@ -178,7 +167,7 @@ namespace Project_OOP
                                     "3.Log out",
                                     "4.Shop",
                                     "5.Exit");
-            int accountMenuChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+            int accountMenuChoice = IntValidator.ParseChoiceToInt(Console.ReadLine());
             switch (accountMenuChoice)
             {
                 case 1:
@@ -192,17 +181,17 @@ namespace Project_OOP
                     Console.Clear();
                     if (account.AccountType == AccountTypes.Prime || account.AccountType == AccountTypes.PrimeDeluxe)
                     {
-                        _writer.TableWidth = 170;
+                        _writer.ChangeTableWidth(170);
                     }
                     account.PrintStats();
                     _writer.PrintTitle("To return to Account menu input 1");
                     while (true)
                     {
-                        int accountMenuReturnChoise = IntValidator.ParseChoiseToInt(Console.ReadLine());
-                        if (accountMenuReturnChoise == 1)
+                        int accountMenuReturnChoice = IntValidator.ParseChoiceToInt(Console.ReadLine());
+                        if (accountMenuReturnChoice == 1)
                         {
                             Console.Clear();
-                            _writer.TableWidth = 161;
+                            _writer.ChangeTableWidth(161);
                             AccountMenu(account);
                         }
                     }
@@ -295,7 +284,7 @@ namespace Project_OOP
 
         private AccountTypes? UpgradeChoice(BasicGameAccount account)
         {
-            int upgradeMenuChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+            int upgradeMenuChoice = IntValidator.ParseChoiceToInt(Console.ReadLine());
             switch (account.AccountType)
             {
                 case AccountTypes.Basic:
@@ -334,7 +323,7 @@ namespace Project_OOP
                                                     "2.No");
                             while (true)
                             {
-                                int confirmChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+                                int confirmChoice = IntValidator.ParseChoiceToInt(Console.ReadLine());
                                 switch (confirmChoice)
                                 {
                                     case 1:
@@ -378,7 +367,7 @@ namespace Project_OOP
                                                     "2.No");
                             while (true)
                             {
-                                int confirmChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+                                int confirmChoice = IntValidator.ParseChoiceToInt(Console.ReadLine());
                                 switch (confirmChoice)
                                 {
                                     case 1:
@@ -403,7 +392,7 @@ namespace Project_OOP
                                                     "2.No");
                             while (true)
                             {
-                                int confirmChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+                                int confirmChoice = IntValidator.ParseChoiceToInt(Console.ReadLine());
                                 switch (confirmChoice)
                                 {
                                     case 1:
@@ -450,7 +439,7 @@ namespace Project_OOP
             }
             while (true)
             {
-                int afterGameChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+                int afterGameChoice = IntValidator.ParseChoiceToInt(Console.ReadLine());
                 if (gameType != GameTypesNames.PvE)
                 {
                     switch (afterGameChoice)
@@ -520,7 +509,7 @@ namespace Project_OOP
                                     "4.Go back to account menu");
             while (true)
             {
-                int playMenuChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+                int playMenuChoice = IntValidator.ParseChoiceToInt(Console.ReadLine());
                 switch (playMenuChoice)
                 {
                     case 1:
@@ -599,7 +588,7 @@ namespace Project_OOP
                                     "2.Decline duel");
             while (true)
             {
-                int duelChoice = IntValidator.ParseChoiseToInt(Console.ReadLine());
+                int duelChoice = IntValidator.ParseChoiceToInt(Console.ReadLine());
                 switch (duelChoice)
                 {
                     case 1:

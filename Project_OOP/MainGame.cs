@@ -39,6 +39,7 @@ namespace Project_OOP
                         Console.Clear();
                         if (CheckDraw())
                         {
+                            InterfaceGame.PrintTickTakToe(TicTacToe);
                             Console.WriteLine("\nIt`s a draw!");
                             switch (gameType)
                             {
@@ -58,7 +59,7 @@ namespace Project_OOP
                         }
                         if (CheckWin(_opponentSign))
                         {
-                            Console.Clear();
+                            InterfaceGame.PrintTickTakToe(TicTacToe);
                             Console.WriteLine("\nPlayer "+opponent.UserName+" won!");
                             switch (gameType)
                             {
@@ -79,8 +80,8 @@ namespace Project_OOP
                         AskPlayer(player, _playerSign);
                         Console.Clear();
                         if (CheckWin(_playerSign))
-                        { 
-                            Console.Clear();
+                        {
+                            InterfaceGame.PrintTickTakToe(TicTacToe);
                             Console.WriteLine("\nPlayer "+player.UserName+" won!");
                             switch (gameType)
                             {
@@ -100,6 +101,7 @@ namespace Project_OOP
                         }
                         if (CheckDraw())
                         {
+                            InterfaceGame.PrintTickTakToe(TicTacToe);
                             Console.WriteLine("\nIt`s a draw!");
                             switch (gameType)
                             {
@@ -129,6 +131,7 @@ namespace Project_OOP
                         Console.Clear();
                         if (CheckDraw())
                         {
+                            InterfaceGame.PrintTickTakToe(TicTacToe);
                             Console.WriteLine("\nIt`s a draw!");
                             switch (gameType)
                             {
@@ -148,7 +151,7 @@ namespace Project_OOP
                         }
                         if (CheckWin(_playerSign))
                         {
-                            Console.Clear();
+                            InterfaceGame.PrintTickTakToe(TicTacToe);
                             Console.WriteLine("\nPlayer "+player.UserName+" won!");
                             switch (gameType)
                             {
@@ -169,8 +172,8 @@ namespace Project_OOP
                         AskPlayer(opponent,_opponentSign);
                         Console.Clear();
                         if (CheckWin(_opponentSign))
-                        { 
-                            Console.Clear();
+                        {
+                            InterfaceGame.PrintTickTakToe(TicTacToe);
                             Console.WriteLine("\nPlayer "+opponent.UserName+" won!");
                             switch (gameType)
                             {
@@ -190,6 +193,7 @@ namespace Project_OOP
                         }
                         if (CheckDraw())
                         {
+                            InterfaceGame.PrintTickTakToe(TicTacToe);
                             Console.WriteLine("\nIt`s a draw!");
                             switch (gameType)
                             {
@@ -694,17 +698,17 @@ namespace Project_OOP
                     break;
                 }
             }
-            
+            InterfaceGame.ShowSignsOrder(player.UserName,opponent.UserName,_order);
             switch (_order) 
             { 
                 case 1: 
                 {
-                    Thread.Sleep(2000);
                     while (true) 
                     { 
                         Console.Clear();
                         if (CheckDraw())
                         {
+                            InterfaceGame.PrintTickTakToe(TicTacToe);
                             Console.WriteLine("\nIt`s a draw!");
                             DecideGameResult(CreateGame.CreatePvEGame(player),GameResults.Draw);
                             break;
@@ -721,8 +725,7 @@ namespace Project_OOP
                         Console.Clear();
                         InterfaceGame.PrintTickTakToe(TicTacToe);
                         if (CheckWin(_playerSign))
-                        { 
-                            Console.Clear();
+                        {
                             Console.WriteLine("\nPlayer "+player.UserName+" won!");
                             DecideGameResult(CreateGame.CreatePvEGame(player),GameResults.Win);
                             break;

@@ -1,68 +1,120 @@
 [
   {
     "$type": "Project_OOP.GameAccount, Project_OOP",
-    "UserName": "player2",
-    "Password": "250CF8B51C773F3F8DC8B4BE867A9A02",
+    "UserName": "player1",
+    "Password": "202CB962AC59075B964B07152D234B70",
     "AccountType": 0,
     "GameList": [
       {
         "GameId": 69069,
-        "RatingAmount": -29,
-        "OpponentName": "player1",
-        "GameResult": "Lose",
-        "GameType": 0
-      },
-      {
-        "GameId": 69070,
-        "RatingAmount": -30,
-        "OpponentName": "player1",
+        "RatingAmount": -9,
+        "OpponentName": "player",
         "GameResult": "Lose",
         "GameType": 0
       },
       {
         "GameId": 69071,
         "RatingAmount": 0,
-        "OpponentName": "player1",
-        "GameResult": "Win",
+        "OpponentName": "player",
+        "GameResult": "Lose",
         "GameType": 2
       }
     ],
     "_curRating": 1
   },
   {
+    "$type": "Project_OOP.PrimeAccount, Project_OOP",
+    "UserName": "player2",
+    "Password": "250CF8B51C773F3F8DC8B4BE867A9A02",
+    "AccountType": 1,
+    "GameList": [
+      {
+        "GameId": 69070,
+        "RatingAmount": 24,
+        "OpponentName": "player",
+        "GameResult": "Win",
+        "GameType": 0
+      }
+    ],
+    "_curRating": 25
+  },
+  {
     "$type": "Project_OOP.PrimeDeluxeAccount, Project_OOP",
     "UserName": "player3",
     "Password": "68053AF2923E00204C3CA7C6A3150CF7",
     "AccountType": 2,
-    "GameList": [],
+    "GameList": [
+      {
+        "GameId": 69073,
+        "RatingAmount": 0,
+        "OpponentName": "Bots",
+        "GameResult": "Draw",
+        "GameType": 1
+      }
+    ],
     "_curRating": 1
   },
   {
-    "$type": "Project_OOP.PrimeDeluxeAccount, Project_OOP",
-    "UserName": "player1",
+    "$type": "Project_OOP.GameAccount, Project_OOP",
+    "UserName": "player",
     "Password": "202CB962AC59075B964B07152D234B70",
-    "AccountType": 2,
+    "AccountType": 0,
     "GameList": [
       {
         "GameId": 69069,
-        "RatingAmount": 29,
-        "OpponentName": "player2",
+        "RatingAmount": 9,
+        "OpponentName": "player1",
         "GameResult": "Win",
         "GameType": 0
       },
       {
         "GameId": 69070,
-        "RatingAmount": 30,
+        "RatingAmount": -24,
         "OpponentName": "player2",
-        "GameResult": "Win",
+        "GameResult": "Lose",
         "GameType": 0
       },
       {
         "GameId": 69071,
         "RatingAmount": 0,
-        "OpponentName": "player2",
-        "GameResult": "Lose",
+        "OpponentName": "player1",
+        "GameResult": "Win",
         "GameType": 2
+      },
+      {
+        "GameId": 69072,
+        "RatingAmount": 0,
+        "OpponentName": "Bots",
+        "GameResult": "Draw",
+        "GameType": 1
+      },
+      {
+        "GameId": 69074,
+        "RatingAmount": 0,
+        "OpponentName": "Bots",
+        "GameResult": "Draw",
+        "GameType": 1
+      },
+      {
+        "GameId": 69075,
+        "RatingAmount": 11,
+        "OpponentName": "Bots",
+        "GameResult": "Win",
+        "GameType": 1
+      },
+      {
+        "GameId": 69076,
+        "RatingAmount": 0,
+        "OpponentName": "Bots",
+        "GameResult": "Draw",
+        "GameType": 1
+      },
+      {
+        "GameId": 69077,
+        "RatingAmount": 0,
+        "OpponentName": "Bots",
+        "GameResult": "Draw",
+        "GameType": 1
       }
     ],
     "_curRating": 1

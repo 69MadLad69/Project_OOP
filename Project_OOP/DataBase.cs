@@ -50,7 +50,7 @@ namespace Project_OOP
 
         public bool CheckPassword(string username, string password)
         {
-            if (FindAccount(username).Password == password)
+            if (FindAccount(username) != null && FindAccount(username).Password == password)
             {
                 return true; 
             }

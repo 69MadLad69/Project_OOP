@@ -179,6 +179,7 @@ namespace Project_OOP
                 case 2:
                 {
                     Console.Clear();
+                    _writer.ChangeTableWidth(161);
                     if (account.AccountType == AccountTypes.Prime || account.AccountType == AccountTypes.PrimeDeluxe)
                     {
                         _writer.ChangeTableWidth(170);
@@ -191,7 +192,6 @@ namespace Project_OOP
                         if (accountMenuReturnChoice == 1)
                         {
                             Console.Clear();
-                            _writer.ChangeTableWidth(161);
                             AccountMenu(account);
                         }
                     }
@@ -425,6 +425,7 @@ namespace Project_OOP
 
         private void AfterGameMenu(BasicGameAccount player, BasicGameAccount opponent, GameTypesNames gameType)
         {
+            _dataBase.SaveAccountsToDataBase(_dataBase.Accounts);
             _writer.PrintTitle("The game ended, please choose what to do next");
             if (gameType != GameTypesNames.PvE)
             {
@@ -506,7 +507,7 @@ namespace Project_OOP
             _writer.PrintOptionsRow("1.Normal",
                                     "2.Training",
                                     "3.PvE",
-                                    "4.Go back to account menu");
+                                    "4.Go back");
             while (true)
             {
                 int playMenuChoice = IntValidator.ParseChoiceToInt(Console.ReadLine());
